@@ -1,3 +1,4 @@
+![GitHub Logo](/assets/images/logo/mia250x191.png) 
 # Mia
 
 Mia is the codename for the next release of AGSatTrack. Mia leverages from the lessons learned in the development of the initial online version of AGSatTrack.
