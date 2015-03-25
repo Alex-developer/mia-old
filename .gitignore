@@ -1,3 +1,6 @@
+# cache directories
+cache
+
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
