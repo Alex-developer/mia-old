@@ -8,7 +8,8 @@ class listview {
         
     public function render() {
         $this->app->render('index.html', array(
-            'template' => 'listview/listview.html'
+            'template' => 'listview/listview.html',
+            'ui' => 'modules/listview.js'            
         ));        
     }
 }

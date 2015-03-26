@@ -7,10 +7,24 @@ var MIABOOTSTRAP = function() {
             }            
         }   
          
+        function getPosition(options) {
+            var deferred = $.Deferred();
+    
+            navigator.geolocation.getCurrentPosition(
+                deferred.resolve,
+                deferred.reject,
+                options);
+
+            return deferred.promise();
+        };
+
     return {
     
         run : function() {
             initWorkers();
+            getPosition().then(function(e){
+                debugger;
+            });
         }
     }
 };

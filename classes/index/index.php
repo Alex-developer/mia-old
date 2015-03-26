@@ -8,7 +8,8 @@ class index {
         
     public function render() {
         $this->app->render('index.html', array(
-            'template' => 'home/home.html'
+            'template' => 'home/home.html',
+            'ui' => 'modules/home/home.js'
         ));        
     }
 }
