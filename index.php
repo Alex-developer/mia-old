@@ -15,11 +15,17 @@ $view->parserOptions = array(
 );
 
 $app->get('/', function () use ($app) {
-    $app->render('index.html', array(
-        'foo' => 'bar'
-    ));
+    runRoute('index', $app);
+});
+
+$app->get('/listview', function () use ($app) {
+    runRoute('listview', $app);
 });
            
+$app->run();
 
-$app->run();  
-?>
+function runRoute($routeName, $app) {
+    require 'classes/' . $routeName . '/index.php';
+    $class = new $routeName($app);
+    $class->render();    
+}
