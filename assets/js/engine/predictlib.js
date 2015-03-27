@@ -1707,67 +1707,71 @@ var PLib =
                          
                     if (PLib.Decayed(z, PLib.daynum) == 0)
                     {
-                        satInfo.satname = satname;
-                        satInfo.dateTime = PLib.Daynum2Date(PLib.daynum);
-                        satInfo.elevation = PLib.sat_ele;
-                        satInfo.azimuth = PLib.sat_azi;
-                        satInfo.orbitalPhase = PLib.ma256;
-                        satInfo.latitude = PLib.isplat;
-                        satInfo.altitude = PLib.sat_alt;
-                        satInfo.velocity = PLib.sat_vel;
-                        satInfo.mode = PLib.ephem;
+                        PLib.sat[z].satname = satname;
+                        PLib.sat[z].dateTime = PLib.Daynum2Date(PLib.daynum);
+                        PLib.sat[z].elevation = PLib.sat_ele;
+                        PLib.sat[z].azimuth = PLib.sat_azi;
+                        PLib.sat[z].orbitalPhase = PLib.ma256;
+                        PLib.sat[z].latitude = PLib.isplat;
+                        PLib.sat[z].altitude = PLib.sat_alt;
+                        PLib.sat[z].velocity = PLib.sat_vel;
+                        PLib.sat[z].mode = PLib.ephem;
         
                         var lng = 360 - PLib.isplong;
                         if (lng > 180) lng = -PLib.isplong;
-                        satInfo.longitude = lng;
+                        PLib.sat[z].longitude = lng;
 
-                        satInfo.slantRange = PLib.irk;
-                        satInfo.orbitNumber = PLib.rv;
-                        satInfo.visibility = PLib.findsun;
+                        PLib.sat[z].slantRange = PLib.irk;
+                        PLib.sat[z].orbitNumber = PLib.rv;
+                        PLib.sat[z].visibility = PLib.findsun;
 
-                        satInfo.orbit = new Array();
-                        
-  /*      var increment = 0.00035;
-        //increment = increment * 3;                        
-        while (satInfo.orbitNumber === PLib.rv) {
-            PLib.daynum -= increment;
-            PLib.Calc();
-        }
+                        if (PLib.sat[z].orbit === undefined) {
+                            PLib.sat[z].orbit = new Array();
+                        }
         
-        PLib.daynum += increment;
-        PLib.Calc();
-        
-        while (satInfo.orbitNumber === PLib.rv) {
-            PLib.daynum += increment;
-            PLib.Calc();
-            
-            var orbitPoint = new Object();
-            orbitPoint.dateTime = PLib.Daynum2Date(PLib.daynum);
-            orbitPoint.elevation = PLib.sat_ele;
-            orbitPoint.azimuth = PLib.sat_azi;
-            orbitPoint.orbitalPhase = PLib.ma256;
-            orbitPoint.latitude = PLib.isplat;
-            orbitPoint.altitude = PLib.sat_alt;
-            orbitPoint.velocity = PLib.sat_vel;
-            orbitPoint.mode = PLib.ephem;
+                        if (PLib.sat[z].orbit.length === 0) {              
+                            var increment = 0.00035;
+                            //increment = increment * 3;                        
+                            while (PLib.sat[z].orbitNumber === PLib.rv) {
+                                PLib.daynum -= increment;
+                                PLib.Calc();
+                            }
+                            
+                            PLib.daynum += increment;
+                            PLib.Calc();
+                            
+                            while (PLib.sat[z].orbitNumber === PLib.rv) {
+                                PLib.daynum += increment;
+                                PLib.Calc();
+                                
+                                var orbitPoint = new Object();
+                                orbitPoint.dateTime = PLib.Daynum2Date(PLib.daynum);
+                                orbitPoint.elevation = PLib.sat_ele;
+                                orbitPoint.azimuth = PLib.sat_azi;
+                                orbitPoint.orbitalPhase = PLib.ma256;
+                                orbitPoint.latitude = PLib.isplat;
+                                orbitPoint.altitude = PLib.sat_alt;
+                                orbitPoint.velocity = PLib.sat_vel;
+                                orbitPoint.mode = PLib.ephem;
 
-            var lng = 360 - PLib.isplong;
-            if (lng > 180) lng = -PLib.isplong;
-            orbitPoint.longitude = lng;
+                                var lng = 360 - PLib.isplong;
+                                if (lng > 180) lng = -PLib.isplong;
+                                orbitPoint.longitude = lng;
 
-            orbitPoint.slantRange = PLib.irk;
-            orbitPoint.orbitNumber = PLib.rv;
-            orbitPoint.visibility = PLib.findsun;
-            
-            satInfo.orbit.push(orbitPoint);
-        } */       
+                                orbitPoint.slantRange = PLib.irk;
+                                orbitPoint.orbitNumber = PLib.rv;
+                                orbitPoint.visibility = PLib.findsun;
+                                
+                                PLib.sat[z].orbit.push(orbitPoint);
+                            }
+                        }       
                     }
         
                     break;
                 }
             }
 
-            return satInfo;
+            return PLib.sat[z];
         },
 
         formatDateOnly: function(dt)
@@ -1937,11 +1941,6 @@ PLib.tleData =
         "ISS (ZARYA)",
         "1 25544U 98067A   15086.17334635  .00015434  00000-0  22972-3 0  9994",
         "2 25544  51.6460 133.7315 0007136 144.2025 255.6332 15.55307244935270"
-    ],
-    [
-        "OSCAR 7 (AO-7)",
-        "1 07530U 74089B   15085.49439727 -.00000011  00000-0  20217-3 0  9995",
-        "2 07530 101.5126  63.4285 0012358 103.5423  10.7417 12.53612923846897"
     ]];
     
     
