@@ -37,26 +37,6 @@ var miaview = function() {
             if (value.elevation >= 0) {
                 var pos = convertAzEltoXY(value.azimuth, value.elevation);
                 
-                var sat = new Konva.Image({
-                    x : pos.x - 8,
-                    y : pos.y - 8,
-                    image : imageObj,
-                    width : 24,
-                    height : 24,
-                    id : '1'
-                });
-                _satLayer.add(sat);
-                
-                _satLayer.add(new Konva.Text({
-                    x : pos.x - 8,
-                    y : pos.y - 20,
-                    text : value.satname,
-                    fontSize : 10,
-                    fontFamily : 'Verdana',
-                    fill : 'white'
-                }));
-                
-                
                 var points = []; 
                 for ( var i = 0; i < value.orbit.length; i++) {                
 
@@ -75,7 +55,26 @@ var miaview = function() {
                             lineJoin: 'round'
                         })
                     );
-                }                               
+                }
+                
+                var sat = new Konva.Image({
+                    x : pos.x - 12,
+                    y : pos.y - 12,
+                    image : imageObj,
+                    width : 24,
+                    height : 24,
+                    id : '1'
+                });
+                _satLayer.add(sat);
+                
+                _satLayer.add(new Konva.Text({
+                    x : pos.x - 8,
+                    y : pos.y - 20,
+                    text : value.satname,
+                    fontSize : 10,
+                    fontFamily : 'Verdana',
+                    fill : 'white'
+                }));                                               
                             
             }                
         });

@@ -1704,7 +1704,7 @@ var PLib =
                     PLib.daynum = PLib.CurrentDaynum();
                     PLib.PreCalc(z);
                     PLib.Calc();
-    
+                         
                     if (PLib.Decayed(z, PLib.daynum) == 0)
                     {
                         satInfo.satname = satname;
@@ -1727,7 +1727,7 @@ var PLib =
 
                         satInfo.orbit = new Array();
                         
-        var increment = 0.00035;
+  /*      var increment = 0.00035;
         //increment = increment * 3;                        
         while (satInfo.orbitNumber === PLib.rv) {
             PLib.daynum -= increment;
@@ -1760,7 +1760,7 @@ var PLib =
             orbitPoint.visibility = PLib.findsun;
             
             satInfo.orbit.push(orbitPoint);
-        }        
+        } */       
                     }
         
                     break;
@@ -1965,7 +1965,7 @@ function calc() {
     }
     self.postMessage(JSON.stringify(result));
         
-    setTimeout(calc, 500);
+    setTimeout(calc, 100);
 }
 
-setTimeout(calc, 500);     
+setTimeout(calc, 100);     
