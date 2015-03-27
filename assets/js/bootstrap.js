@@ -3,6 +3,17 @@ var MIABOOTSTRAP = function() {
 
         function initWorkers() {
             if (Modernizr.webworkers) {
+                
+var worker = new Worker('/assets/js/engine/predictlib.js');
+
+worker.addEventListener('message', function(e) {
+ // console.log('Worker result: ', e.data);
+  
+ // miaview.render(JSON.parse(e.data));
+}, false);
+
+worker.postMessage('start');
+                
             } else {
             }            
         }   
@@ -23,7 +34,6 @@ var MIABOOTSTRAP = function() {
         run : function() {
             initWorkers();
             getPosition().then(function(e){
-                debugger;
             });
         }
     }

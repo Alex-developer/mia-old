@@ -21,6 +21,10 @@ $app->get('/', function () use ($app) {
 $app->get('/listview', function () use ($app) {
     runRoute('listview', $app);
 });
+
+$app->get('/polarview', function () use ($app) {
+    runRoute('polarview', $app);
+});
            
 $app->run();
 

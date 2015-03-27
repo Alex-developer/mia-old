@@ -1,5 +1,5 @@
 <?php
-class listview {
+class polarview {
     private $app = null;
     
     function __construct($app) {
@@ -8,8 +8,8 @@ class listview {
         
     public function render() {
         $this->app->render('index.html', array(
-            'template' => 'listview/listview.html',
-            'ui' => 'modules/listview/listview.js'            
+            'template' => 'polarview/polarview.html',
+            'ui' => 'modules/polarview/polarview.js'            
         ));        
     }
 }
