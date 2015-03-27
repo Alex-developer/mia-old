@@ -1724,12 +1724,49 @@ var PLib =
                         satInfo.slantRange = PLib.irk;
                         satInfo.orbitNumber = PLib.rv;
                         satInfo.visibility = PLib.findsun;
+
+                        satInfo.orbit = new Array();
+                        
+        var increment = 0.00035;
+        //increment = increment * 3;                        
+        while (satInfo.orbitNumber === PLib.rv) {
+            PLib.daynum -= increment;
+            PLib.Calc();
+        }
+        
+        PLib.daynum += increment;
+        PLib.Calc();
+        
+        while (satInfo.orbitNumber === PLib.rv) {
+            PLib.daynum += increment;
+            PLib.Calc();
+            
+            var orbitPoint = new Object();
+            orbitPoint.dateTime = PLib.Daynum2Date(PLib.daynum);
+            orbitPoint.elevation = PLib.sat_ele;
+            orbitPoint.azimuth = PLib.sat_azi;
+            orbitPoint.orbitalPhase = PLib.ma256;
+            orbitPoint.latitude = PLib.isplat;
+            orbitPoint.altitude = PLib.sat_alt;
+            orbitPoint.velocity = PLib.sat_vel;
+            orbitPoint.mode = PLib.ephem;
+
+            var lng = 360 - PLib.isplong;
+            if (lng > 180) lng = -PLib.isplong;
+            orbitPoint.longitude = lng;
+
+            orbitPoint.slantRange = PLib.irk;
+            orbitPoint.orbitNumber = PLib.rv;
+            orbitPoint.visibility = PLib.findsun;
+            
+            satInfo.orbit.push(orbitPoint);
+        }        
                     }
         
                     break;
                 }
             }
-        
+
             return satInfo;
         },
 
@@ -1928,7 +1965,7 @@ function calc() {
     }
     self.postMessage(JSON.stringify(result));
         
-    setTimeout(calc, 100);
+    setTimeout(calc, 500);
 }
 
-setTimeout(calc, 100);     
+setTimeout(calc, 500);     

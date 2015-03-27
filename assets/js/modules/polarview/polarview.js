@@ -7,6 +7,7 @@ var miaview = function() {
         
     var _stage;
     var _backgroundLayer;
+    var _satLayer;
     
     var _height;
     var _width;
@@ -26,6 +27,60 @@ var miaview = function() {
     }
         
     function render(data) {
+        _satLayer.removeChildren();
+        
+        var imageObj = new Image();
+        imageObj.src = '/assets/images/satellite-24.png';
+        
+        jQuery.each(data, function( index, value ) {
+            
+            if (value.elevation >= 0) {
+                var pos = convertAzEltoXY(value.azimuth, value.elevation);
+                
+                var sat = new Konva.Image({
+                    x : pos.x - 8,
+                    y : pos.y - 8,
+                    image : imageObj,
+                    width : 24,
+                    height : 24,
+                    id : '1'
+                });
+                _satLayer.add(sat);
+                
+                _satLayer.add(new Konva.Text({
+                    x : pos.x - 8,
+                    y : pos.y - 20,
+                    text : value.satname,
+                    fontSize : 10,
+                    fontFamily : 'Verdana',
+                    fill : 'white'
+                }));
+                
+                
+                var points = []; 
+                for ( var i = 0; i < value.orbit.length; i++) {                
+
+                    if (value.orbit[i].elevation >= 0) {
+                        var pos = convertAzEltoXY(value.orbit[i].azimuth, value.orbit[i].elevation); 
+                        points.push(pos.x | 0);
+                        points.push(pos.y | 0);                
+                    }
+                } 
+                if (points.length > 0) {
+                    _satLayer.add(new Konva.Line({
+                            points: points,
+                            stroke: 'green',
+                            strokeWidth: 2,
+                            lineCap: 'round',
+                            lineJoin: 'round'
+                        })
+                    );
+                }                               
+                            
+            }                
+        });
+                
+        _satLayer.draw();
     }
     
     function drawViewBackground() {
@@ -43,6 +98,9 @@ var miaview = function() {
         _backgroundLayer = new Konva.Layer();
         _stage.add(_backgroundLayer);    
         
+        _satLayer = new Konva.Layer();
+        _stage.add(_satLayer);
+                    
         setDimensions();
         _backgroundLayer.removeChildren();
         
@@ -203,10 +261,36 @@ var miaview = function() {
         _radius = (0.5 + (size / 2)) | 0;
         _halfMargin = (0.5 + (_margin / 2)) | 0;
     }
-            
+    
+    function convertAzEltoXY(az, el) {
+
+        if (el < 0) {
+            return {
+                x : 0,
+                y : 0
+            };
+        }
+
+        /* convert angles to radians */
+        az = _de2ra * az;
+        el = _de2ra * el;
+
+        /* radius @ el */
+        var rel = _radius - (2 * _radius * el) / Math.PI;
+
+        var x = (_cx + rel * Math.sin(az));
+        var y = (_cy - rel * Math.cos(az));
+
+        return {
+            x : x,
+            y : y
+        };
+    }
+                
     return {
     
         render : function(data) {
+            render(data)
         },
         
         init : function() {
