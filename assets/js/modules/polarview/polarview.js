@@ -32,48 +32,37 @@ var miaview = function() {
         var imageObj = new Image();
         imageObj.src = '/assets/images/satellite-24.png';
         
-        jQuery.each(data, function( index, value ) {
+        jQuery.each(data, function( index, satellite ) {
             
-            if (value.elevation >= 0) {
-                var pos = convertAzEltoXY(value.azimuth, value.elevation);
-                
-                var points = []; 
-                for ( var i = 0; i < value.orbit.length; i++) {                
-
-                    if (value.orbit[i].elevation >= 0) {
-                        var pos = convertAzEltoXY(value.orbit[i].azimuth, value.orbit[i].elevation); 
-                        points.push(pos.x | 0);
-                        points.push(pos.y | 0);                
-                    }
-                } 
-                if (points.length > 0) {
-                    _satLayer.add(new Konva.Line({
-                            points: points,
-                            stroke: 'green',
-                            strokeWidth: 2,
-                            lineCap: 'round',
-                            lineJoin: 'round'
-                        })
-                    );
-                }
-                
-                var sat = new Konva.Image({
+            plotOrbits(satellite);
+            
+            if (satellite.elevation >= 0) {
+               
+                var opacity = 0.1;
+                if (satellite.catnum == '39090') {
+                    opacity = 1;
+                }   
+                        
+                var pos = convertAzEltoXY(satellite.azimuth, satellite.elevation);
+                var sat = new Kinetic.Image({
                     x : pos.x - 12,
                     y : pos.y - 12,
                     image : imageObj,
                     width : 24,
                     height : 24,
-                    id : '1'
+                    id : '1',
+                    opacity: opacity
                 });
-                _satLayer.add(sat);
+               _satLayer.add(sat);
                 
-                _satLayer.add(new Konva.Text({
+                _satLayer.add(new Kinetic.Text({
                     x : pos.x - 8,
                     y : pos.y - 20,
-                    text : value.satname,
+                    text : satellite.satname,
                     fontSize : 10,
                     fontFamily : 'Verdana',
-                    fill : 'white'
+                    fill : 'white',
+                    opacity: opacity
                 }));                                               
                             
             }                
@@ -82,28 +71,229 @@ var miaview = function() {
         _satLayer.draw();
     }
     
+    function plotOrbits(satellite) {
+        var prePoints = [];                        
+        var points = [];                        
+        var postPoints = []; 
+        var haveAos = false;
+                
+        var max = {azimuth:0, elevation:0};
+        var maxPrev = {azimuth:0, elevation:0};
+        
+        var aosPos = {x:0, y:0};
+        var aostime = null;
+        
+        var drawStartArrow = false;
+        var drawMaxArrow = false;
+        var drawEndArrow = false;
+        
+        var azimuth = satellite.azimuth;
+        var elevation = satellite.elevation;
+        
+        var opacity = 0.1;
+        if (satellite.catnum == '39090') {
+            opacity = 1;
+        }                
+        for ( var i = 0; i < satellite.orbit.length; i++) {
+            var pos = convertAzEltoXY(satellite.orbit[i].azimuth, satellite.orbit[i].elevation);
+            if (satellite.orbit[i].elevation >= 5) {
+                if (points.length ===0) {
+                    prePoints.push(pos.x | 0);
+                    prePoints.push(pos.y | 0);
+                    aosPos.x  = pos.x;
+                    aosPos.y = pos.y;                                   
+                }
+                points.push(pos.x | 0);
+                points.push(pos.y | 0);
+
+                if (aostime === null) {
+                    aostime = satellite.orbit[i].dateTime;
+                }
+                
+                haveAos = true;
+                
+                if (!drawStartArrow) {
+                    drawArrow(prePoints, 'red', opacity);
+                    drawStartArrow = true;
+                }
+            } else {
+                if (!haveAos) {
+                    if (satellite.orbit[i].elevation >= 0) {
+                        prePoints.push(pos.x | 0);
+                        prePoints.push(pos.y | 0);                                    
+                    }
+                } else {
+                    if (satellite.orbit[i].elevation >= 0) {
+                        if (postPoints.length === 0 && points.length > 0) {
+                            postPoints.push(points[points.length-2]);
+                            postPoints.push(points[points.length-1]);
+                        }
+                        postPoints.push(pos.x | 0);
+                        postPoints.push(pos.y | 0);
+                        
+                        if (!drawEndArrow) {
+                            if (drawStartArrow) {
+                                drawArrow(postPoints, 'green', opacity);
+                                drawEndArrow = true; 
+                            }                                       
+                        }                                   
+                    }
+                }
+            }
+            if (satellite.orbit[i].elevation > max.elevation) {
+                max = satellite.orbit[i];
+                if (i > 0) {
+                    maxPrev = satellite.orbit[i - 1];
+                }
+            }
+            
+            if (haveAos && satellite.orbit[i].elevation < 0) {
+                break;
+            }
+        }
+
+        if (prePoints.length > 0) {
+            _satLayer.add(new Kinetic.Line({
+                    points: prePoints,
+                    stroke: 'red',
+                    strokeWidth: 1,
+                    lineCap: 'round',
+                    lineJoin: 'round',
+                    opacity: opacity
+                })
+            );
+        }
+                                                        
+        if (points.length > 0) {
+            _satLayer.add(new Kinetic.Line({
+                    points: points,
+                    stroke: 'green',
+                    strokeWidth: 2,
+                    lineCap: 'round',
+                    lineJoin: 'round',
+                    opacity: opacity
+                })
+            );
+        }
+        
+        if (postPoints.length > 0) {
+            _satLayer.add(new Kinetic.Line({
+                    points: postPoints,
+                    stroke: 'red',
+                    strokeWidth: 1,
+                    lineCap: 'round',
+                    lineJoin: 'round',
+                    opacity: opacity
+                })
+            );
+        }
+        
+        var maxArray = [];
+        pos = convertAzEltoXY(maxPrev.azimuth, maxPrev.elevation); 
+        maxArray.push(pos.x | 0);
+        maxArray.push(pos.y | 0);                
+        pos = convertAzEltoXY(max.azimuth, max.elevation); 
+        maxArray.push(pos.x | 0);
+        maxArray.push(pos.y | 0);
+        drawArrow(maxArray, 'green', opacity);          
+        
+        /**
+        * If satellite is selected but NOT visible then add a text label
+        * at the max elevation.
+        */
+        if (elevation < 5) {
+            if (aostime !== null) {
+                pos = convertAzEltoXY(max.azimuth, max.elevation);
+                _satLayer.add(new Kinetic.Text({
+                    x : pos.x + 5,
+                    y : pos.y + 5,
+                    text : satellite.satname,
+                    fontSize : 8,
+                    fontFamily : 'Verdana',
+                    fill : '#eee',
+                    opacity: opacity
+                }));  
+            }                   
+        } 
+        if (max.azimuth !== 0 && max.elevation !== 0) {
+            pos = convertAzEltoXY(max.azimuth, max.elevation);
+            _satLayer.add(new Kinetic.Circle({
+                x : pos.x,
+                y : pos.y,
+                radius : 2,
+                stroke : 'red',
+                strokeWidth : 1,
+                fill: 'red',
+                opacity: opacity 
+            })); 
+        } 
+        
+        /*
+        if (aosPos.x !== 0 && aosPos.y !== 0) {
+            _satLayer.add(new Kinetic.Text({
+                x : aosPos.x,
+                y : aosPos.y,
+                text : 'AoS: ' + AGUTIL.shortdatetime(passData.aosTime),
+                fontSize : 8,
+                fontFamily : 'Verdana',
+                fill : '#eee'
+            }));                         
+        }
+        
+        if (postPoints.length !== 0) {
+            _satLayer.add(new Kinetic.Text({
+                x : postPoints[0],
+                y : postPoints[1],
+                text : 'LoS: ' + AGUTIL.shortdatetime(passData.losTime),
+                fontSize : 8,
+                fontFamily : 'Verdana',
+                fill : '#eee'
+            }));                          
+        }  
+        */                                              
+    }
+    
+    
+    function drawArrow(points, colour, opacity) {
+        var fromx = points[points.length-4];
+        var fromy = points[points.length-3];
+
+        var tox = points[points.length-2];
+        var toy = points[points.length-1];
+        
+        var headlen = 10;
+        var angle = Math.atan2(toy-fromy,tox-fromx);
+
+        var line = new Kinetic.Line({
+            points: [fromx, fromy, tox, toy, tox-headlen*Math.cos(angle-Math.PI/6),toy-headlen*Math.sin(angle-Math.PI/6),tox, toy, tox-headlen*Math.cos(angle+Math.PI/6),toy-headlen*Math.sin(angle+Math.PI/6)],
+            stroke: colour,
+            opacity: opacity
+        });
+        _satLayer.add(line);         
+    }
+        
     function drawViewBackground() {
         var _circle;
         var _line;
         var _text;
         var radius;
         
-        _stage = new Konva.Stage({
+        _stage = new Kinetic.Stage({
             container : 'stage',
             width : window.innerWidth -100,
             height : window.innerHeight - 56
         });
 
-        _backgroundLayer = new Konva.Layer();
+        _backgroundLayer = new Kinetic.Layer();
         _stage.add(_backgroundLayer);    
         
-        _satLayer = new Konva.Layer();
+        _satLayer = new Kinetic.Layer();
         _stage.add(_satLayer);
                     
         setDimensions();
         _backgroundLayer.removeChildren();
         
-        var res = _backgroundLayer.add(new Konva.Rect({
+        var res = _backgroundLayer.add(new Kinetic.Rect({
             x: 0,
             y: 0,
             width: _width,
@@ -111,7 +301,7 @@ var miaview = function() {
             fill: '#' + _colours.background
         }));
 
-        _backgroundLayer.add(new Konva.Circle({
+        _backgroundLayer.add(new Kinetic.Circle({
             x : _cx,
             y : _cy,
             radius : _radius + _halfMargin,
@@ -120,7 +310,7 @@ var miaview = function() {
             fill: '#' + _colours.background 
         })); 
 
-        _circle = new Konva.Circle({
+        _circle = new Kinetic.Circle({
             x : _cx,
             y : _cy,
             radius : _radius,
@@ -133,7 +323,7 @@ var miaview = function() {
         
         for (var i=0; i<90; i+=15) {
             radius = (0.5 + (_radius * (i/90))) | 0;
-            _backgroundLayer.add(new Konva.Circle({
+            _backgroundLayer.add(new Kinetic.Circle({
                 x : _cx,
                 y : _cy,
                 radius : radius,
@@ -145,7 +335,7 @@ var miaview = function() {
         var elFontSize = 10;
         for (i=15; i<90; i+=15) {
             radius = (0.5 + (_radius * (i/90))) | 0;
-            _backgroundLayer.add(new Konva.Text({
+            _backgroundLayer.add(new Kinetic.Text({
                 x : _cx - radius - 7,
                 y : _cy + 5,
                 text : (90-i) + '°',
@@ -153,7 +343,7 @@ var miaview = function() {
                 fontFamily : 'Verdana',
                 fill : '#' + _colours.degcolour
             }));
-            _backgroundLayer.add(new Konva.Text({
+            _backgroundLayer.add(new Kinetic.Text({
                 x : _cx + radius - 7,
                 y : _cy + 5,
                 text : (90-i) + '°',
@@ -182,28 +372,28 @@ var miaview = function() {
             var endX =  (_cx + (_radius + 15) * Math.cos( rad )) | 0;  
             var endY =  (_cy + (_radius + 15) * Math.sin( rad )) | 0;
             
-            _backgroundLayer.add(new Konva.Line({
+            _backgroundLayer.add(new Kinetic.Line({
                 points : [ startX, startY, endX, endY ],
                 stroke : '#' + _colours.grid,
                 strokeWidth : 1
             }));           
         } 
         
-        _backgroundLayer.add(new Konva.Line({
+        _backgroundLayer.add(new Kinetic.Line({
             points : [ _cx - _radius - _halfMargin + 5, _cy,
                     _cx + _radius + _halfMargin - 5, _cy ],
             stroke : '#' + _colours.grid,
             strokeWidth : 1
         }));
 
-        _backgroundLayer.add(new Konva.Line({
+        _backgroundLayer.add(new Kinetic.Line({
             points : [ _cx, _cy - _radius - _halfMargin + 5, _cx,
                     _cy + _radius + _halfMargin - 5 ],
             stroke : '#' + _colours.grid,
             strokeWidth : 1
         }));
         
-        _backgroundLayer.add(new Konva.Text({
+        _backgroundLayer.add(new Kinetic.Text({
             x : _cx + 5,
             y : 30,
             text : 'N',
@@ -212,7 +402,7 @@ var miaview = function() {
             fill : '#' + _colours.text
         }));
 
-        _backgroundLayer.add(new Konva.Text({
+        _backgroundLayer.add(new Kinetic.Text({
             x : _cx + _radius ,
             y : _radius + _halfMargin,
             text : 'E',
@@ -221,7 +411,7 @@ var miaview = function() {
             fill : '#' + _colours.text
         }));
 
-        _backgroundLayer.add(new Konva.Text({
+        _backgroundLayer.add(new Kinetic.Text({
             x : _cx - _radius - 10,
             y : _radius + _halfMargin,
             text : 'W',
@@ -230,7 +420,7 @@ var miaview = function() {
             fill : '#' + _colours.text
         }));
 
-        _backgroundLayer.add(new Konva.Text({
+        _backgroundLayer.add(new Kinetic.Text({
             x : _cx + 8,
             y : _height - _halfMargin - 30,
             text : 'S',
