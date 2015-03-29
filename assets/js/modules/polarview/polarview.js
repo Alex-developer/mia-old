@@ -509,6 +509,7 @@ var miaview = function() {
         
         init : function() {
             initView();
+            resize();
             drawViewBackground();    
         }
     }
