@@ -252,8 +252,7 @@ var miaview = function() {
         }  
         */                                              
     }
-    
-    
+       
     function drawArrow(points, colour, opacity) {
         var fromx = points[points.length-4];
         var fromy = points[points.length-3];
@@ -271,13 +270,8 @@ var miaview = function() {
         });
         _satLayer.add(line);         
     }
-        
-    function drawViewBackground() {
-        var _circle;
-        var _line;
-        var _text;
-        var radius;
-        
+    
+    function initView() {
         _stage = new Kinetic.Stage({
             container : 'stage',
             width : window.innerWidth -100,
@@ -288,7 +282,14 @@ var miaview = function() {
         _stage.add(_backgroundLayer);    
         
         _satLayer = new Kinetic.Layer();
-        _stage.add(_satLayer);
+        _stage.add(_satLayer);        
+    }   
+     
+    function drawViewBackground() {
+        var _circle;
+        var _line;
+        var _text;
+        var radius;
                     
         setDimensions();
         _backgroundLayer.removeChildren();
@@ -475,7 +476,31 @@ var miaview = function() {
             y : y
         };
     }
-                
+    
+    /**
+    * Resize the view. if no width or heig is specified then it is derived
+    * from the parent (_element) element.
+    * 
+    * @param width Width of view in Pixels
+    * @param height Height of view in Pixels
+    */
+    function resize(width, height) {
+        if (typeof width === 'undefined' || typeof height === 'undefined') {
+            var parent = jQuery('#stage');
+            width = parent.width();
+            height = parent.height();
+        }
+
+        if (width !== 0 && height !== 0) {
+            _stage.setSize(width, height);
+            drawViewBackground();
+        }          
+    }
+    
+    jQuery(window).resize(function(){
+        resize();
+    });     
+               
     return {
     
         render : function(data) {
@@ -483,6 +508,7 @@ var miaview = function() {
         },
         
         init : function() {
+            initView();
             drawViewBackground();    
         }
     }
