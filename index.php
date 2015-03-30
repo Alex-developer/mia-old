@@ -25,6 +25,10 @@ $app->get('/listview', function () use ($app) {
 $app->get('/polarview', function () use ($app) {
     runRoute('polarview', $app);
 });
+
+$app->get('/timelineview', function () use ($app) {
+    runRoute('timelineview', $app);
+});
            
 $app->run();
 

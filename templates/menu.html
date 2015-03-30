@@ -1,18 +1,107 @@
-  <nav class="navbar navbar-default">
+ <style>
+ html, body {
+  height: 100%;
+}
+body {
+  padding: 50px 0 0 0;
+}
+
+.navmenu {
+  padding-top: 50px;
+}
+
+.navbar {
+  display: block;
+  text-align: center;
+}
+.navbar-brand {
+  display: inline-block;
+  float: none;
+}
+.navbar-toggle {
+  position: absolute;
+  float: left;
+  margin-left: 15px;
+}
+
+.container {
+  max-width: 100%;
+}
+
+@media (min-width: 1px) {
+  .navbar-toggle {
+    display: block !important;
+  }
+}
+
+@media (min-width: 992px) {
+  body {
+    padding: 0 0 0 300px;
+  }
+  .navmenu {
+    padding-top: 0;
+  }
+  .navbar {
+    display: none !important; /* IE8 fix */
+  }
+}
+
+.navmenu-nav.dropdown-menu { position:relative; }
+ </style>
+ 
+ 
+ 
+ 
+     <div class="navmenu navmenu-default navmenu-fixed-left offcanvas-sm">
+      <a class="navmenu-brand visible-md visible-lg" href="#"><img src="/assets/images/logo/mia-head.png" /> Mia Sat</a>
+
+      <ul class="nav navmenu-nav">
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li><a href="#">Link</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Views <b class="caret"></b></a>
+          <ul class="dropdown-menu navmenu-nav">
+            <li><a href="#">3D</a></li>
+            <li><a href="/listview">List</a></li>
+            <li><a href="/polarview">Polar</a></li>
+            <li><a href="#">Passes</a></li>
+            <li><a href="#">Sky</a></li>
+            <li><a href="/timelineview">Timeline</a></li>
+            <li><a href="#">DX View</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <div class="navbar navbar-default navbar-fixed-top hidden-md hidden-lg">
+      <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".navmenu">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="#"><img src="/assets/images/logo/mia-head.png" /></a>     
+    </div>
+ 
+ 
+ <!-- <nav class="navbar navbar-default">
   <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
+
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-      </button>
+      </button>      
       <a class="navbar-brand" href="/"><img src="/assets/images/logo/mia-head.png" /></a>
+ 
+ 
     </div>
 
-    <!-- Collect the nav links, forms, and other content for toggling -->
+
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
       <ul class="nav navbar-nav">
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">View <span class="caret"></span></a>
@@ -22,7 +111,7 @@
             <li><a href="/polarview">Polar</a></li>
             <li><a href="#">Passes</a></li>
             <li><a href="#">Sky</a></li>
-            <li><a href="#">Timeline</a></li>
+            <li><a href="/timelineview">Timeline</a></li>
             <li><a href="#">DX View</a></li>
           </ul>
         </li>
@@ -39,6 +128,7 @@
         <li><a href="#"><img src="/assets/images/settings.png" /></a></li>
         <li><a href="#"><img src="/assets/images/logout.png" /></a></li>
       </ul>
-    </div><!-- /.navbar-collapse -->
-  </div><!-- /.container-fluid -->
+    </div>
+  </div>
 </nav>
+-->

@@ -38,7 +38,7 @@ var miaview = function() {
             
             if (satellite.elevation >= 0) {
                
-                var opacity = 0.1;
+                var opacity = 0.25;
                 if (satellite.catnum == '39090') {
                     opacity = 1;
                 }   
@@ -90,7 +90,7 @@ var miaview = function() {
         var azimuth = satellite.azimuth;
         var elevation = satellite.elevation;
         
-        var opacity = 0.1;
+        var opacity = 0.25;
         if (satellite.catnum == '39090') {
             opacity = 1;
         }                
