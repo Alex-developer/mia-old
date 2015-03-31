@@ -1716,7 +1716,8 @@ var PLib =
                         PLib.sat[z].altitude = PLib.sat_alt;
                         PLib.sat[z].velocity = PLib.sat_vel;
                         PLib.sat[z].mode = PLib.ephem;
-                        Plib.sat[z].geostationary = Geostationary(z)
+                        PLib.sat[z].geostationary = PLib.Geostationary(z)
+        
         
                         var lng = 360 - PLib.isplong;
                         if (lng > 180) lng = -PLib.isplong;
