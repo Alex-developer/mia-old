@@ -56,8 +56,7 @@ var MIABOOTSTRAP = function() {
                //jQuery('<li></li>',{'class': 'list-group-item'}).html(satellite.satname)
                //''); 
                // selector.append(selectorLine);
-            });  
-            debugger;  
+            });   
         }
         
         function getPosition(options) {
