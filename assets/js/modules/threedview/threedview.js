@@ -45,7 +45,7 @@ var miaview = function() {
             _viewer.terrainProvider = terrainProvider;
             _viewer.scene.globe.enableLighting = true; 
             
-            resize();   
+            //resize();   
         }   
         
         function resize(width, height) {            
@@ -64,7 +64,7 @@ var miaview = function() {
         }
         
         jQuery(window).resize(function(){
-            resize();
+           // resize();
         });
                  
     return {
