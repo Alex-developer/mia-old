@@ -1,12 +1,14 @@
 var miaview = function() {
     'use strict';
 
+    var _viewer;
+    
         function render(data) {
              
         }
 
         function initView() {
-            var viewer = new Cesium.Viewer('cesiumContainer', {
+            _viewer = new Cesium.Viewer('cesiumContainer', {
                 timeline: false,
                 navigationHelpButton: false,
                 fullscreenButton: false,
@@ -40,10 +42,31 @@ var miaview = function() {
                 requestVertexNormals: true,
                 requestWaterMask: true
             });
-            viewer.terrainProvider = terrainProvider;
-            viewer.scene.globe.enableLighting = true;    
+            _viewer.terrainProvider = terrainProvider;
+            _viewer.scene.globe.enableLighting = true; 
+            
+            resize();   
         }   
-             
+        
+        function resize(width, height) {            
+            if (typeof width === 'undefined' || typeof height === 'undefined') {
+                var parent = jQuery('#cesiumContainer');
+                width = parent.width();
+                height = parent.height();
+            }
+
+            if (width !== 0 && height !== 0) {
+                _viewer.canvas.width = width;
+                _viewer.canvas.height = height;
+
+                _viewer.scene.camera.frustum.aspectRatio = width / height;
+            }          
+        }
+        
+        jQuery(window).resize(function(){
+            resize();
+        });
+                 
     return {
         init : function() {
             initView();    
