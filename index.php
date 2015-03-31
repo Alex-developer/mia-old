@@ -29,6 +29,10 @@ $app->get('/polarview', function () use ($app) {
 $app->get('/timelineview', function () use ($app) {
     runRoute('timelineview', $app);
 });
+
+$app->get('/threedview', function () use ($app) {
+    runRoute('threedview', $app);
+});
            
 $app->run();
 
