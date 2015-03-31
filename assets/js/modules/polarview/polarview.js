@@ -33,12 +33,13 @@ var miaview = function() {
         imageObj.src = '/assets/images/satellite-24.png';
         
         jQuery.each(data, function( index, satellite ) {
+            if (jQuery('#' + satellite.catnum).prop('checked')) {    
+                plotOrbits(satellite);
             
-            plotOrbits(satellite);
-            
-            if (satellite.elevation >= 0) {
+                if (satellite.elevation >= 0) {
                
-                var opacity = 0.25;
+                //var opacity = 0.25;
+                var opacity = 1;
                 if (satellite.catnum == '39090') {
                     opacity = 1;
                 }   
@@ -66,6 +67,7 @@ var miaview = function() {
                 }));                                               
                             
             }                
+            }
         });
                 
         _satLayer.draw();
@@ -90,7 +92,8 @@ var miaview = function() {
         var azimuth = satellite.azimuth;
         var elevation = satellite.elevation;
         
-        var opacity = 0.25;
+       // var opacity = 0.25;
+        var opacity = 1;
         if (satellite.catnum == '39090') {
             opacity = 1;
         }                

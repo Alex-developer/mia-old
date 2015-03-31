@@ -24,6 +24,8 @@ var table = '<div class="table-responsive"> \
         '; 
         
 jQuery.each(data, function( index, value ) {
+    
+    if (jQuery('#' + value.catnum).prop('checked')) {
     table += '            <tr>                   \
                 <td>' + (index+1) + '</td>                      \
                 <td>' + value.satname + '</td>                 \
@@ -36,6 +38,7 @@ jQuery.each(data, function( index, value ) {
                 <td>' + value.altitude.toFixed(2) + '</td>           \          \
                 <td>' + value.velocity.toFixed(2) + '</td>           \          \           \
             </tr>';
+    }
 });           
 
 
