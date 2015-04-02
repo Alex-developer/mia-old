@@ -329,10 +329,18 @@ var miaview = function() {
         _stage.add(_mouseLayer);
         
         _stage.on('mousemove', function() {
-            _mousePos = _stage.getMousePosition();
+            _mousePos = _stage.getPointerPosition();
             convertMousePos();
             drawMousePos();
         });
+
+        _stage.on('touchmove', function() {
+            _mousePos = _stage.getPointerPosition();
+            convertMousePos();
+            drawMousePos();
+        });
+                       
+               
                                       
     }   
      
