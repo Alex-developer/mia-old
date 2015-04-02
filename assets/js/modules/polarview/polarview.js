@@ -98,6 +98,9 @@ var miaview = function() {
                 jQuery('#latitude').html(satellite.latitude);
                 jQuery('#longitude').html(satellite.longitude);
                 jQuery('#locator').html(satellite.locator);
+                jQuery('#doppler').html(satellite.dopplershift.toFixed(2));
+                jQuery('#loss').html(satellite.signalloss.toFixed(2));
+                jQuery('#delay').html(satellite.signaldelay.toFixed(2));
             }
         });
     

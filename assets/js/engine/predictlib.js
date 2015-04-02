@@ -1586,6 +1586,12 @@ var PLib =
             PLib.iel = Math.round(PLib.sat_ele);
             PLib.ma256 = Math.round(256.0 * (PLib.phase / PLib.twopi));
         
+            PLib.signaldelay = PLib.sat_range / 299.7924580;
+            PLib.signalloss = 72.4 + 20.0*PLib.log10(PLib.sat_range);
+            PLib.dopplershift = -100.0e06 * (PLib.sat_range_rate / 299792.4580);
+            
+            PLib.sat_locator = PLib.getLocator(PLib.sat_lat, PLib.sat_lon);
+                                
             if (PLib.sat_sun_status)
             {
                 if (PLib.sun_ele <= -12.0 && PLib.sat_ele >= 0.0)
@@ -1597,6 +1603,25 @@ var PLib =
                 PLib.findsun = 'Eclipsed';
         },
         
+        getDistance : function(lat1, lon1, lat2, lon2) {
+            var distance, c, a, dLat, dLon;        
+            var R = 6372.795;
+    
+            dLat = lat2-lat1;
+            dLon = lon2-lon1; 
+            a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                    Math.cos(lat1) * Math.cos(lat2) * 
+                    Math.sin(dLon/2) * Math.sin(dLon/2); 
+            c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+            distance = R * c;            
+            
+            return distance;
+        },
+            
+        log10 : function (val) {
+            return Math.log(val) / Math.LN10;
+        },
+                
         AosHappens: function(x)
         {
             var lin = 0.0, sma = 0.0, apogee = 0.0;
@@ -1720,7 +1745,10 @@ var PLib =
                             PLib.sat[z].velocity = PLib.sat_vel;
                             PLib.sat[z].mode = PLib.ephem;
                             PLib.sat[z].geostationary = PLib.Geostationary(z)
-                            PLib.sat[z].locator = PLib.getLocator(PLib.isplat, PLib.isplong);
+                            PLib.sat[z].locator = PLib.sat_locator
+                            PLib.sat[z].signaldelay = PLib.signaldelay
+                            PLib.sat[z].signalloss = PLib.signalloss
+                            PLib.sat[z].dopplershift = PLib.dopplershift
             
             
                             var lng = 360 - PLib.isplong;
