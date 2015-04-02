@@ -14,7 +14,6 @@ var MIAWORKER = function() {
         for (var i = 0; i < PLib.sat.length; i++) {
             satInfo = PLib.QuickFind(PLib.sat[i].name);
             result.push(satInfo);
-
         }
         self.postMessage(JSON.stringify(result));
         
@@ -24,16 +23,25 @@ var MIAWORKER = function() {
     }
     
     function processMessage(e) {
-        var data = e.data;
-        switch (data.cmd) {
+        var message = e.data;
+        switch (message.cmd) {
             case 'start': 
-                PLib.tleData = data.data;
+                PLib.tleData = message.data;
                 PLib.InitializeData();
                 PLib.configureGroundStation(homeLat, homeLng);
                 running = true;            
                 calc();
                 break;
             
+            case 'selection':
+                for (var i = 0; i < PLib.sat.length; i++) {
+                    PLib.sat[i].calculate = false;
+                    if (message.data.indexOf(PLib.sat[i].catnum) !== -1) {
+                        PLib.sat[i].calculate = true;
+                    }
+                }
+                break;
+                
             case 'stop':
                 running = false;
                 break;

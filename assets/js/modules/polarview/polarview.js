@@ -8,14 +8,19 @@ var miaview = function() {
     var _stage;
     var _backgroundLayer;
     var _satLayer;
+    var _mouseLayer;
     
+    var _mousePosTextAz;
+    var _mousePosTextEl;
+            
     var _height;
     var _width;
     var _cx;
     var _cy;
     var _radius;
     var _halfMargin;
-    
+    var _naflag = false;
+        
     var _colours = {
         background: '001224',
         border: '38554d',
@@ -25,7 +30,15 @@ var miaview = function() {
         gradientstart: '374553',
         gradientend: '001224'        
     }
-        
+    
+    var _mousePos = {
+        x : 0,
+        y : 0,
+        el : 0,
+        az : 0,
+        show : false
+    };
+            
     function render(data) {
         _satLayer.removeChildren();
         
@@ -33,7 +46,7 @@ var miaview = function() {
         imageObj.src = '/assets/images/satellite-24.png';
         
         jQuery.each(data, function( index, satellite ) {
-            if (jQuery('#' + satellite.catnum).prop('checked')) {    
+            if (satellite.calculate) {    
                 plotOrbits(satellite);
             
                 if (satellite.elevation >= 0) {
@@ -71,6 +84,23 @@ var miaview = function() {
         });
                 
         _satLayer.draw();
+        
+        updateSatelliteInfo(data);
+    }
+    
+    function updateSatelliteInfo(data) {
+        jQuery.each(data, function( index, satellite ) {
+            if (satellite.calculate) {    
+           
+                jQuery('#noradid').html(satellite.catnum);
+                jQuery('#name').html(satellite.name);
+                
+                jQuery('#latitude').html(satellite.latitude);
+                jQuery('#longitude').html(satellite.longitude);
+                jQuery('#locator').html(satellite.locator);
+            }
+        });
+    
     }
     
     function plotOrbits(satellite) {
@@ -168,15 +198,23 @@ var miaview = function() {
         }
                                                         
         if (points.length > 0) {
-            _satLayer.add(new Kinetic.Line({
+             var a = new Kinetic.Line({
                     points: points,
                     stroke: 'green',
                     strokeWidth: 2,
                     lineCap: 'round',
                     lineJoin: 'round',
                     opacity: opacity
-                })
-            );
+                });
+            _satLayer.add(a);
+            
+            /*a.on('mousemove', function() {
+                var mousePos = _stage.getMousePosition();
+                var x = mousePos.x;
+                var y = mousePos.y ;
+                console.log('x: ' + x + ', y: ' + y);
+            }); */
+      
         }
         
         if (postPoints.length > 0) {
@@ -285,7 +323,17 @@ var miaview = function() {
         _stage.add(_backgroundLayer);    
         
         _satLayer = new Kinetic.Layer();
-        _stage.add(_satLayer);        
+        _stage.add(_satLayer);  
+        
+        _mouseLayer = new Kinetic.Layer();
+        _stage.add(_mouseLayer);
+        
+        _stage.on('mousemove', function() {
+            _mousePos = _stage.getMousePosition();
+            convertMousePos();
+            drawMousePos();
+        });
+                                      
     }   
      
     function drawViewBackground() {
@@ -432,8 +480,47 @@ var miaview = function() {
             fontFamily : 'Verdana',
             fill : '#' + _colours.text
         }));
-                                        
-        _backgroundLayer.draw();                    
+        
+        elFontSize = 14;        
+        _backgroundLayer.add(new Kinetic.Text({
+            x : 10,
+            y : 30,
+            text : 'Azimuth:',
+            fontSize : elFontSize,
+            fontFamily : 'Verdana',
+            fill : '#' + _colours.text
+        }));
+        
+        _backgroundLayer.add(new Kinetic.Text({
+            x : 10,
+            y : 50,
+            text : 'Elevation:',
+            fontSize : elFontSize,
+            fontFamily : 'Verdana',
+            fill : '#' + _colours.text
+        }));                                        
+        _backgroundLayer.draw();   
+        
+        _mousePosTextAz = new Kinetic.Text({
+            x : 80,
+            y : 30,
+            text : '',
+            fontSize : elFontSize,
+            fontFamily : 'Calibri',
+            fill : '#' + _colours.text
+        });
+        _mouseLayer.add(_mousePosTextAz);
+
+        _mousePosTextEl = new Kinetic.Text({
+            x : 80,
+            y : 50,
+            text : '',
+            fontSize : elFontSize,
+            fontFamily : 'Calibri',
+            fill : '#' + _colours.text
+        });
+        _mouseLayer.add(_mousePosTextEl);
+                                     
     }
     
     function setDimensions() {
@@ -500,9 +587,51 @@ var miaview = function() {
         }          
     }
     
+    /**
+    * Convert the current postiion of the mouse to Azimuth and
+    * Elevation.
+    */
+    function convertMousePos() {
+        var rel = _radius - Math.sqrt((_mousePos.x - _cx) * (_mousePos.x - _cx) + (_mousePos.y - _cy) * (_mousePos.y - _cy));
+        _mousePos.el = 90.0 * rel / _radius;
+        if (_mousePos.x >= _cx) {
+            /* 1. and 2. quadrant */
+            _mousePos.az = Math.atan2(_mousePos.x - _cx, _cy - _mousePos.y) / _de2ra;
+        } else {
+            /* 3 and 4. quadrant */
+            _mousePos.az = 360 + Math.atan2(_mousePos.x - _cx, _cy - _mousePos.y) / _de2ra;
+        }
+
+        if (_mousePos.az < 0 || _mousePos.el < 0) {
+            _mousePos.show = false;
+        } else {
+            _mousePos.show = true;
+        }
+    }
+    
+    function drawMousePos() {
+        if (_mousePos.show) {
+            _mousePosTextAz.setText(_mousePos.az.toFixed(0));
+            _mousePosTextEl.setText(_mousePos.el.toFixed(0));
+            _naflag = false;
+            _mouseLayer.draw();
+        } else {
+            if (_naflag === false) {
+                _mousePosTextAz.setText('N/A');
+                _mousePosTextEl.setText('N/A');
+                _naflag = true;
+                _mouseLayer.draw();
+            }
+        }        
+    }
+            
     jQuery(window).resize(function(){
         resize();
     });     
+    
+    jQuery('#stage').mousemove(function(e) {
+        drawMousePos();
+    });
                
     return {
     

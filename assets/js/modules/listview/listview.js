@@ -10,7 +10,6 @@ var table = '<div class="table-responsive"> \
             <tr>                               \
                 <th></th>                       \
                 <th>satname</th>                    \
-                <th>Type</th>                     \
                 <th>visibility</th>                       \
                 <th>azimuth</th>                         \
                 <th>Ele</th>                         \
@@ -23,20 +22,19 @@ var table = '<div class="table-responsive"> \
         <tbody>                                              \
         '; 
         
-jQuery.each(data, function( index, value ) {
+jQuery.each(data, function( index, satellite ) {
     
-    if (jQuery('#' + value.catnum).prop('checked')) {
+    if (satellite.calculate) {
     table += '            <tr>                   \
                 <td>' + (index+1) + '</td>                      \
-                <td>' + value.satname + '</td>                 \
-                <td>' + value.mode + '</td>                 \
-                <td>' + value.visibility + '</td>            \
-                <td>' + value.azimuth.toFixed(2) + '</td>                \
-                <td>' + value.elevation.toFixed(2) + '</td>                \
-                <td>' + value.latitude.toFixed(2) + '</td>           \
-                <td>' + value.longitude.toFixed(2) + '</td>           \
-                <td>' + value.altitude.toFixed(2) + '</td>           \          \
-                <td>' + value.velocity.toFixed(2) + '</td>           \          \           \
+                <td>' + satellite.satname + '</td>                 \
+                <td>' + satellite.visibility + '</td>            \
+                <td>' + satellite.azimuth.toFixed(2) + '</td>                \
+                <td>' + satellite.elevation.toFixed(2) + '</td>                \
+                <td>' + satellite.latitude.toFixed(2) + '</td>           \
+                <td>' + satellite.longitude.toFixed(2) + '</td>           \
+                <td>' + satellite.altitude.toFixed(2) + '</td>           \          \
+                <td>' + satellite.velocity.toFixed(2) + '</td>           \          \           \
             </tr>';
     }
 });           

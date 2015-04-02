@@ -10,8 +10,7 @@ var MIABOOTSTRAP = function() {
                 
                 _worker = new Worker('/assets/js/engine/worker.js');
                 _worker.addEventListener('message', function(e) {
-                 // console.log('Worker result: ', e.data);
-                 
+
                  if (!_menuBuilt) {
                     buildSatelliteSelector(JSON.parse(e.data)); 
                     _menuBuilt = true;   
@@ -51,12 +50,19 @@ var MIABOOTSTRAP = function() {
         function buildSatelliteSelector(sats) {
             var selector = jQuery('<div>',{id: 'satselectorlist', 'class': 'btn-group', 'data-toggle': 'buttons', 'style':'width:100%'}).appendTo('#satelliteselector');
             jQuery.each(sats, function(key, satellite){
-               jQuery('#satselectorlist').append('<label class="btn btn-default" style="clear:both; width:100%"><input type="checkbox" autocomplete="off" id="' + satellite.catnum + '"> ' + satellite.satname + '</label>');
-               
-               //jQuery('<li></li>',{'class': 'list-group-item'}).html(satellite.satname)
-               //''); 
-               // selector.append(selectorLine);
-            });   
+                jQuery('#satselectorlist').append('<label class="btn btn-default" style="clear:both; width:100%"><input type="checkbox" class="satellitebutton" autocomplete="off" id="' + satellite.catnum + '"> ' + satellite.satname + '</label>');
+            });
+            
+            jQuery('#satselectorlist').on('change', '.satellitebutton', function(e){
+                var selected = [];
+                
+                jQuery('.satellitebutton').each(function(){
+                    if (jQuery(this).prop('checked')) {
+                        selected.push(jQuery(this).prop('id'));    
+                    }    
+                });  
+                messageWorker('selection', selected);
+            });
         }
         
         function getPosition(options) {

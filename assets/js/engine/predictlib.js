@@ -1442,6 +1442,7 @@ var PLib =
             PLib.sat[x].meanmo = PLib.sat[x].line2.substring(52, 63);
             PLib.sat[x].drag = PLib.sat[x].line1.substring(33, 43);
             PLib.sat[x].orbitnum = PLib.sat[x].line2.substring(63, 68);
+            PLib.sat[x].calculate = false;
         },
 
         InitializeData: function()
@@ -1693,86 +1694,92 @@ var PLib =
             return PLib.lostime;
         },
 
-        QuickFind: function(satname)
-        {
+        QuickFind: function(satname)  {
             var satInfo = new Object();
 
-            for (var z = 0; z < PLib.sat.length; z++)
-            {
-                if ((PLib.sat[z].name == satname) || (satname == PLib.sat[z].catnum))
-                {
+            for (var z = 0; z < PLib.sat.length; z++) {
+                if ((PLib.sat[z].name == satname) || (satname == PLib.sat[z].catnum)) {
                     PLib.daynum = PLib.CurrentDaynum();
                     PLib.PreCalc(z);
-                    PLib.Calc();
-                         
-                    if (PLib.Decayed(z, PLib.daynum) == 0)
-                    {
-                        PLib.sat[z].satname = satname;
-                        PLib.sat[z].dateTime = PLib.Daynum2Date(PLib.daynum);
-                        PLib.sat[z].elevation = PLib.sat_ele;
-                        PLib.sat[z].azimuth = PLib.sat_azi;
-                        PLib.sat[z].orbitalPhase = PLib.ma256;
-                        PLib.sat[z].latitude = PLib.isplat;
-                        PLib.sat[z].altitude = PLib.sat_alt;
-                        PLib.sat[z].velocity = PLib.sat_vel;
-                        PLib.sat[z].mode = PLib.ephem;
-                        PLib.sat[z].geostationary = PLib.Geostationary(z)
-        
-        
-                        var lng = 360 - PLib.isplong;
-                        if (lng > 180) lng = -PLib.isplong;
-                        PLib.sat[z].longitude = lng;
+                    
+                    PLib.sat[z].satname = satname;
+                    
+                    if (PLib.sat[z].calculate) {
 
-                        PLib.sat[z].slantRange = PLib.irk;
-                        PLib.sat[z].orbitNumber = PLib.rv;
-                        PLib.sat[z].visibility = PLib.findsun;
+                        PLib.Calc();    
+                             
+                        if (PLib.Decayed(z, PLib.daynum) == 0) {
+                            
+                            PLib.sat[z].dateTime = PLib.Daynum2Date(PLib.daynum);
+                            PLib.sat[z].elevation = PLib.sat_ele;
+                            PLib.sat[z].azimuth = PLib.sat_azi;
+                            PLib.sat[z].orbitalPhase = PLib.ma256;
+                            PLib.sat[z].latitude = PLib.isplat;
+                            PLib.sat[z].longitude = PLib.isplong;
+                            PLib.sat[z].altitude = PLib.sat_alt;
+                            PLib.sat[z].velocity = PLib.sat_vel;
+                            PLib.sat[z].mode = PLib.ephem;
+                            PLib.sat[z].geostationary = PLib.Geostationary(z)
+                            PLib.sat[z].locator = PLib.getLocator(PLib.isplat, PLib.isplong);
+            
+            
+                            var lng = 360 - PLib.isplong;
+                            if (lng > 180) lng = -PLib.isplong;
+                            PLib.sat[z].longitude = lng;
 
-                        if (PLib.sat[z].orbit === undefined) {
-                            PLib.sat[z].orbit = new Array();
-                        }
-        
-                        if (PLib.sat[z].orbit.length === 0) {              
-                            var increment = 0.00035;
-                            //increment = increment * 3;                        
-                            while (PLib.sat[z].orbitNumber === PLib.rv) {
-                                PLib.daynum -= increment;
-                                PLib.Calc();
+                            PLib.sat[z].slantRange = PLib.irk;
+                            PLib.sat[z].orbitNumber = PLib.rv;
+                            PLib.sat[z].visibility = PLib.findsun;
+
+                            if (PLib.sat[z].passes === undefined) {
+                                PLib.sat[z].passes = PLib.getTodaysPassesForSatellite(z);
                             }
                             
-                            PLib.daynum += increment;
-                            PLib.Calc();
-                            
-                            while (PLib.sat[z].orbitNumber === PLib.rv) {
+                            if (PLib.sat[z].orbit === undefined) {
+                                PLib.sat[z].orbit = new Array();
+                            }
+            
+                            if (PLib.sat[z].orbit.length === 0) {              
+                                var increment = 0.00035;
+                                //increment = increment * 3;                        
+                                while (PLib.sat[z].orbitNumber === PLib.rv) {
+                                    PLib.daynum -= increment;
+                                    PLib.Calc();
+                                }
+                                
                                 PLib.daynum += increment;
                                 PLib.Calc();
                                 
-                                var orbitPoint = new Object();
-                                orbitPoint.dateTime = PLib.Daynum2Date(PLib.daynum);
-                                orbitPoint.elevation = PLib.sat_ele;
-                                orbitPoint.azimuth = PLib.sat_azi;
-                                orbitPoint.orbitalPhase = PLib.ma256;
-                                orbitPoint.latitude = PLib.isplat;
-                                orbitPoint.altitude = PLib.sat_alt;
-                                orbitPoint.velocity = PLib.sat_vel;
-                                orbitPoint.mode = PLib.ephem;
+                                while (PLib.sat[z].orbitNumber === PLib.rv) {
+                                    PLib.daynum += increment;
+                                    PLib.Calc();
+                                    
+                                    var orbitPoint = new Object();
+                                    orbitPoint.dateTime = PLib.Daynum2Date(PLib.daynum);
+                                    orbitPoint.elevation = PLib.sat_ele;
+                                    orbitPoint.azimuth = PLib.sat_azi;
+                                    orbitPoint.orbitalPhase = PLib.ma256;
+                                    orbitPoint.latitude = PLib.isplat;
+                                    orbitPoint.altitude = PLib.sat_alt;
+                                    orbitPoint.velocity = PLib.sat_vel;
+                                    orbitPoint.mode = PLib.ephem;
 
-                                var lng = 360 - PLib.isplong;
-                                if (lng > 180) lng = -PLib.isplong;
-                                orbitPoint.longitude = lng;
+                                    var lng = 360 - PLib.isplong;
+                                    if (lng > 180) lng = -PLib.isplong;
+                                    orbitPoint.longitude = lng;
 
-                                orbitPoint.slantRange = PLib.irk;
-                                orbitPoint.orbitNumber = PLib.rv;
-                                orbitPoint.visibility = PLib.findsun;
-                                
-                                PLib.sat[z].orbit.push(orbitPoint);
-                            }
-                        }       
+                                    orbitPoint.slantRange = PLib.irk;
+                                    orbitPoint.orbitNumber = PLib.rv;
+                                    orbitPoint.visibility = PLib.findsun;
+                                    
+                                    PLib.sat[z].orbit.push(orbitPoint);
+                                }
+                            }       
+                        }
                     }
-        
                     break;
                 }
             }
-
             return PLib.sat[z];
         },
 
@@ -1813,7 +1820,7 @@ var PLib =
             var d = new Date(dt.getTime() + 86400000);
             return d;
         },
-
+        
         getTodaysPasses: function()
         {
             var satInfoColl = new Array();
@@ -1821,107 +1828,114 @@ var PLib =
             var x = 0, y = 0, z = 0, lastel = 0;
             var start = 0, now = 0;
 
-            for (z = 0; z < PLib.sat.length; z++)
-            {
-                indx = z;
-
-                now = (3651.0 + PLib.CurrentDaynum()) * 86400.0;
-
-                if (start == 0)
-                    start = now;
-
-                if ((start >= now - 31557600) && (start <= now + 31557600))
-                {
-                    PLib.daynum = (start / 86400.0) - 3651.0;
-                    PLib.PreCalc(indx);
-                    PLib.Calc();
-
-                    var d = new Date();
-                    var passNo = 1;
-
-                    if (PLib.AosHappens(indx) && PLib.Geostationary(indx) == 0 && PLib.Decayed(indx, PLib.daynum) == 0)
-                    {
-                        PLib.daynum = PLib.FindAOS();
-
-                        while (PLib.Daynum2Date(PLib.daynum) < PLib.addDay(d))
-                        {
-                            var satInfo = new Object();
-
-                            satInfo.number = z + 1;
-                            satInfo.name = PLib.sat[z].name;
-                            satInfo.passNo = passNo++;
-                            satInfo.dateTimeStart = PLib.Daynum2Date(PLib.daynum);
-                            satInfo.peakElevation = PLib.iel;
-                            satInfo.riseAzimuth
-                                = satInfo.peakAzimuth
-                                = PLib.iaz;
-                            satInfo.orbitalPhase = PLib.ma256;
-                            satInfo.latitude = PLib.isplat;
-
-                            var lng = 360 - PLib.isplong;
-                            if (lng > 180) lng = -PLib.isplong;
-                            satInfo.longitude = lng;
-
-                            satInfo.riseRange
-                                = satInfo.peakRange
-                                = PLib.irk;
-                            satInfo.orbitNumber = PLib.rv;
-
-                            var plusCount = 0;
-                            var asteriskCount = 0;
-
-                            while (PLib.iel >= 0)
-                            {
-                                if (PLib.iel > satInfo.peakElevation)
-                                {
-                                    satInfo.peakElevation = PLib.iel;
-                                    satInfo.peakAzimuth = PLib.iaz;
-                                    satInfo.peakRange = PLib.irk;
-                                }
-
-                                if (PLib.findsun == '+')
-                                    plusCount++;
-                                else if (PLib.findsun == '*')
-                                    asteriskCount++;
-
-                                lastel = PLib.iel;
-                                PLib.daynum += Math.cos((PLib.sat_ele - 1.0) * PLib.deg2rad) * Math.sqrt(PLib.sat_alt) / 25000.0;
-                                PLib.Calc();
-                            }
-
-                            if (lastel != 0)
-                            {
-                                PLib.daynum = PLib.FindLOS();
-                                PLib.Calc();
-                            }
-
-                            satInfo.dateTimeEnd = PLib.Daynum2Date(PLib.daynum);
-                            satInfo.decayAzimuth = PLib.iaz;
-                            satInfo.decayRange = PLib.irk;
-
-                            if ((plusCount > 3) || (plusCount > 2 && asteriskCount > 2))
-                            {
-                                satInfo.visibility = '+';
-                            }
-                            else if (asteriskCount > 2)
-                            {
-                                satInfo.visibility = '*';
-                            }
-
-                            satInfoColl[arrIdx++] = satInfo;
-
-                            PLib.daynum += (1 / 24 / 6);
-                            PLib.daynum = PLib.FindAOS();
-                        } 
-                    }
-                }
+            for (z = 0; z < PLib.sat.length; z++) {
+                PLib.getTodaysPassesForSatellite(z);
             }
-
+                
             return satInfoColl;
         },
 
-        configureGroundStation: function(lat, lng)
-        {
+        getTodaysPassesForSatellite : function(z) {
+            var satInfoColl = new Array();
+            var arrIdx = 0;
+            var x = 0, y = 0, lastel = 0;
+            var start = 0, now = 0;
+            indx = z;
+            
+            now = (3651.0 + PLib.CurrentDaynum()) * 86400.0;
+
+            if (start == 0)
+                start = now;
+
+            if ((start >= now - 31557600) && (start <= now + 31557600)) {
+                PLib.daynum = (start / 86400.0) - 3651.0;
+                PLib.PreCalc(indx);
+                PLib.Calc();
+
+                var d = new Date();
+                var passNo = 1;
+
+                if (PLib.AosHappens(indx) && PLib.Geostationary(indx) == 0 && PLib.Decayed(indx, PLib.daynum) == 0)
+                {
+                    PLib.daynum = PLib.FindAOS();
+
+                    while (PLib.Daynum2Date(PLib.daynum) < PLib.addDay(d))
+                    {
+                        var satInfo = new Object();
+
+                        satInfo.number = z + 1;
+                        satInfo.name = PLib.sat[z].name;
+                        satInfo.passNo = passNo++;
+                        satInfo.dateTimeStart = PLib.Daynum2Date(PLib.daynum);
+                        satInfo.peakElevation = PLib.iel;
+                        satInfo.riseAzimuth
+                            = satInfo.peakAzimuth
+                            = PLib.iaz;
+                        satInfo.orbitalPhase = PLib.ma256;
+                        satInfo.latitude = PLib.isplat;
+
+                        var lng = 360 - PLib.isplong;
+                        if (lng > 180) lng = -PLib.isplong;
+                        satInfo.longitude = lng;
+
+                        satInfo.riseRange
+                            = satInfo.peakRange
+                            = PLib.irk;
+                        satInfo.orbitNumber = PLib.rv;
+
+                        var plusCount = 0;
+                        var asteriskCount = 0;
+
+                        while (PLib.iel >= 0)
+                        {
+                            if (PLib.iel > satInfo.peakElevation)
+                            {
+                                satInfo.peakElevation = PLib.iel;
+                                satInfo.peakAzimuth = PLib.iaz;
+                                satInfo.peakRange = PLib.irk;
+                            }
+
+                            if (PLib.findsun == '+')
+                                plusCount++;
+                            else if (PLib.findsun == '*')
+                                asteriskCount++;
+
+                            lastel = PLib.iel;
+                            PLib.daynum += Math.cos((PLib.sat_ele - 1.0) * PLib.deg2rad) * Math.sqrt(PLib.sat_alt) / 25000.0;
+                            PLib.Calc();
+                        }
+
+                        if (lastel != 0)
+                        {
+                            PLib.daynum = PLib.FindLOS();
+                            PLib.Calc();
+                        }
+
+                        satInfo.dateTimeEnd = PLib.Daynum2Date(PLib.daynum);
+                        satInfo.decayAzimuth = PLib.iaz;
+                        satInfo.decayRange = PLib.irk;
+
+                        if ((plusCount > 3) || (plusCount > 2 && asteriskCount > 2))
+                        {
+                            satInfo.visibility = '+';
+                        }
+                        else if (asteriskCount > 2)
+                        {
+                            satInfo.visibility = '*';
+                        }
+
+                        satInfoColl[arrIdx++] = satInfo;
+
+                        PLib.daynum += (1 / 24 / 6);
+                        PLib.daynum = PLib.FindAOS();
+                    } 
+                }
+            }
+            
+            return satInfoColl;        
+        },
+        
+        configureGroundStation: function(lat, lng) {
             PLib.qth.stnlat = lat;
 
             if (lng < 0) PLib.qth.stnlong = -lng;
@@ -1931,7 +1945,31 @@ var PLib =
             PLib.obs_geodetic.lon = -PLib.qth.stnlong * PLib.deg2rad;
             PLib.obs_geodetic.alt = PLib.qth.stnalt / 1000.0;
             PLib.obs_geodetic.theta = 0.0;
-        }
+        },
+        
+        getLocator: function(lat, lng) {
+            function chr(x) { return String.fromCharCode(x); }
+            function floor(x) { return Math.floor(x); }        
+
+            var qth = '';
+            lat += 90; lng += 180;
+            lat = lat / 10 + 0.0000001;
+            lng = lng / 20 + 0.0000001;
+            qth += chr(65 + lng) + chr(65 + lat);
+            lat = 10 * (lat - floor(lat));
+            lng = 10 * (lng - floor(lng));
+            qth += chr(48 + lng) + chr(48 + lat);
+            lat = 24 * (lat - floor(lat));
+            lng = 24 * (lng - floor(lng));
+            qth += chr(65 + lng) + chr(65 + lat);
+            // lat = 10 * (lat - floor(lat));
+            //lng = 10 * (lng - floor(lng));
+            // qth += chr(48 + lng) + chr(48 + lat);
+            // lat = 24 * (lat - floor(lat));
+            // lng = 24 * (lng - floor(lng));
+            // qth += chr(65 + lng) + chr(65 + lat);
+            return qth;
+        }        
     };
 
 PLib.obs_geodetic = new PLib.geodetic_t();
