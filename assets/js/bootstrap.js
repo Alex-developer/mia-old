@@ -16,7 +16,7 @@ var MIABOOTSTRAP = function() {
                     _menuBuilt = true;   
                  }
                  
-                 miaview.render(JSON.parse(e.data));
+                 MIARENDERER.render(JSON.parse(e.data));
                 }, false);
 
                 

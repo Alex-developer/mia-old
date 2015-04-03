@@ -48,6 +48,8 @@ jQuery('#listtable').html(table);
         }
         
     return {
+        
+        updateInfo: true,
     
         render : function(data) {
             render(data);

@@ -85,132 +85,141 @@ body {
         </li>
       </ul>    
     
-    <img  alt="settings" src="/assets/images/earth53.png" />
-    <img  alt="settings" src="/assets/images/list7.png" />
-    <img  alt="settings" src="/assets/images/compass43.png" />
-    <img  alt="settings" src="/assets/images/settings.png" />
-    <img  alt="settings" src="/assets/images/settings.png" />
-    <img  alt="settings" src="/assets/images/settings.png" />
-    <img  alt="settings" src="/assets/images/settings.png" />
+    <a href="/threedview"><img alt="settings" src="/assets/images/earth53.png" /></a>
+    <a href="/listview"><img alt="settings" src="/assets/images/list7.png" /></a>
+    <a href="/polarview"><img alt="settings" src="/assets/images/compass43.png" /></a>
+    <img alt="settings" src="/assets/images/settings.png" />
+    <img alt="settings" src="/assets/images/settings.png" />
+    <img alt="settings" src="/assets/images/settings.png" />
+    <img alt="settings" src="/assets/images/settings.png" />
     
         <div role="tabpanel">
             <ul class="nav nav-tabs" role="tablist">
                 <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Satellite</a></li>
-                <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Info</a></li>
+                <li role="presentation"><a href="#satinfo" aria-controls="profile" role="tab" data-toggle="tab">Info</a></li>
                 <li role="presentation"><a href="#viewoptions" aria-controls="viewoptions" role="tab" data-toggle="tab">View Options</a></li>
             </ul>
             
             <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="home"><div id="satelliteselector"></div></div>
-                <div role="tabpanel" class="tab-pane" id="profile">
-                
-                
-                    <table width="100%" class="table">
-                        <tr>
-                            <th colspan="2">Element Values</th>
-                        </tr>
-                        <tr>
-                            <td width="50%">Cat Num</td>
-                            <td id="noradid" class="sat-info"></td>
-                        </tr>
-                        <tr>
-                            <td>Name</td>
-                            <td id="name" class="sat-info"></td>
-                        </tr>
-                        <tr>
-                            <td>Owner</td>
-                            <td id="owner" class="sat-info"></td>
-                        </tr>
-                        <tr>
-                            <td>Period</td>
-                            <td id="period" class="sat-info"></td>
-                        </tr>
-                        <tr>
-                            <td>Inclination</td>
-                            <td id="inclination" class="sat-info"></td>
-                        </tr>
-                        <tr>
-                            <td>Apogee</td>
-                            <td id="apogee" class="sat-info"></td>
-                        </tr>
-                        <tr>
-                            <td>Perigee</td>
-                            <td id="perigee" class="sat-info"></td>
-                        </tr>
-                        <tr>
-                            <th colspan="2">Calculated Values</th>
-                        </tr>
-                        <tr>
-                            <td>Latitude</td>
-                            <td id="latitude" class="sat-info"></td>
-                        </tr>
-                        <tr>
-                            <td>Longitude</td>
-                            <td id="longitude" class="sat-info"></td>
-                        </tr>
-                        <tr>
-                            <td>Locator</td>
-                            <td id="locator" class="sat-info"></td>
-                        </tr>                    
-                        <tr>
-                            <td>Altitude</td>
-                            <td id="altitude" class="sat-info"></td>
-                        </tr>
-                        <tr>
-                            <td>Orbit Number</td>
-                            <td id="orbitnumber" class="sat-info"></td>
-                        </tr>
-                        <tr>
-                            <td>Visible</td>
-                            <td id="visible" class="sat-info"></td>
-                        </tr>
-                        
-                        <tr>
-                            <td>Velocity</td>
-                            <td id="velocity" class="sat-info"></td>
-                        </tr>
-                        <tr>
-                            <td>Footprint</td>
-                            <td id="footprint" class="sat-info"></td>
-                        </tr>
-                        <tr>
-                            <td>Range</td>
-                            <td id="range" class="sat-info"></td>
-                        </tr>
-                        <tr>
-                            <td>Range rate</td>
-                            <td id="rangerate" class="sat-info"></td>
-                        </tr>
-                        <tr>
-                            <td>Doppler Shift (Hz)</td>
-                            <td id="doppler" class="sat-info"></td>
-                        </tr>
-                        <tr>
-                            <td>Signal Loss (dB)</td>
-                            <td id="loss" class="sat-info"></td>
-                        </tr>
-                        <tr>
-                            <td>Signal Delay (ms)</td>
-                            <td id="delay" class="sat-info"></td>
-                        </tr>                                                               
-                        <tr>
-                            <td>Elevation</td>
-                            <td id="elevation" class="sat-info"></td>
-                        </tr>
-                        <tr>
-                            <td>Azimuth</td>
-                            <td id="azimuth" class="sat-info"></td>
-                        </tr>
-                        <tr>
-                            <td>Orbital Phase</td>
-                            <td id="orbitalphase" class="sat-info"></td>
-                        </tr>
-                        <tr>
-                            <td>Geostationary</td>
-                            <td id="geostationary" class="sat-info"></td>
-                        </tr>                    
-                    </table>                
-                
+                <div role="tabpanel" class="tab-pane" id="satinfo">
+
+
+                   <ul class="nav nav-tabs" role="tablist">
+                        <li role="presentation" class="active"><a href="#satinfoinfo" aria-controls="home" role="tab" data-toggle="tab">Info</a></li>
+                        <li role="presentation"><a href="#satinfopassee" aria-controls="profile" role="tab" data-toggle="tab">Passes</a></li>
+                    </ul>                
+                    <div class="tab-content">   
+                        <div role="tabpanel" class="tab-pane active" id="satinfoinfo">
+                            <table width="100%" class="table">
+                                <tr>
+                                    <th colspan="2">Element Values</th>
+                                </tr>
+                                <tr>
+                                    <td width="50%">Cat Num</td>
+                                    <td id="noradid" class="sat-info"></td>
+                                </tr>
+                                <tr>
+                                    <td>Name</td>
+                                    <td id="name" class="sat-info"></td>
+                                </tr>
+                                <tr>
+                                    <td>Owner</td>
+                                    <td id="owner" class="sat-info"></td>
+                                </tr>
+                                <tr>
+                                    <td>Period</td>
+                                    <td id="period" class="sat-info"></td>
+                                </tr>
+                                <tr>
+                                    <td>Inclination</td>
+                                    <td id="inclination" class="sat-info"></td>
+                                </tr>
+                                <tr>
+                                    <td>Apogee</td>
+                                    <td id="apogee" class="sat-info"></td>
+                                </tr>
+                                <tr>
+                                    <td>Perigee</td>
+                                    <td id="perigee" class="sat-info"></td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2">Calculated Values</th>
+                                </tr>
+                                <tr>
+                                    <td>Latitude</td>
+                                    <td id="latitude" class="sat-info"></td>
+                                </tr>
+                                <tr>
+                                    <td>Longitude</td>
+                                    <td id="longitude" class="sat-info"></td>
+                                </tr>
+                                <tr>
+                                    <td>Locator</td>
+                                    <td id="locator" class="sat-info"></td>
+                                </tr>                    
+                                <tr>
+                                    <td>Altitude</td>
+                                    <td id="altitude" class="sat-info"></td>
+                                </tr>
+                                <tr>
+                                    <td>Orbit Number</td>
+                                    <td id="orbitnumber" class="sat-info"></td>
+                                </tr>
+                                <tr>
+                                    <td>Visible</td>
+                                    <td id="visible" class="sat-info"></td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>Velocity</td>
+                                    <td id="velocity" class="sat-info"></td>
+                                </tr>
+                                <tr>
+                                    <td>Footprint</td>
+                                    <td id="footprint" class="sat-info"></td>
+                                </tr>
+                                <tr>
+                                    <td>Range</td>
+                                    <td id="range" class="sat-info"></td>
+                                </tr>
+                                <tr>
+                                    <td>Range rate</td>
+                                    <td id="rangerate" class="sat-info"></td>
+                                </tr>
+                                <tr>
+                                    <td>Doppler Shift (Hz)</td>
+                                    <td id="doppler" class="sat-info"></td>
+                                </tr>
+                                <tr>
+                                    <td>Signal Loss (dB)</td>
+                                    <td id="loss" class="sat-info"></td>
+                                </tr>
+                                <tr>
+                                    <td>Signal Delay (ms)</td>
+                                    <td id="delay" class="sat-info"></td>
+                                </tr>                                                               
+                                <tr>
+                                    <td>Elevation</td>
+                                    <td id="elevation" class="sat-info"></td>
+                                </tr>
+                                <tr>
+                                    <td>Azimuth</td>
+                                    <td id="azimuth" class="sat-info"></td>
+                                </tr>
+                                <tr>
+                                    <td>Orbital Phase</td>
+                                    <td id="orbitalphase" class="sat-info"></td>
+                                </tr>
+                                <tr>
+                                    <td>Geostationary</td>
+                                    <td id="geostationary" class="sat-info"></td>
+                                </tr>                    
+                            </table>                 
+                        </div> 
+                        <div role="tabpanel" class="tab-pane" id="satinfopassee"></div> 
+                                           
+                    </div>    
                 
                 </div>
                 
