@@ -1,6 +1,7 @@
 <?php
 class polarview {
     private $app = null;
+    private $name = 'Polar View';
     
     function __construct($app) {
         $this->app = $app;
@@ -9,7 +10,8 @@ class polarview {
     public function render() {
         $this->app->render('index.html', array(
             'template' => 'polarview/polarview.html',
-            'ui' => 'modules/polarview/polarview.js'            
+            'ui' => 'modules/polarview/polarview.js',
+            'name' => $this->name            
         ));        
     }
 }

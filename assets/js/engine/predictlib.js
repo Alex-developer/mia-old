@@ -1744,11 +1744,21 @@ var PLib =
                             PLib.sat[z].altitude = PLib.sat_alt;
                             PLib.sat[z].velocity = PLib.sat_vel;
                             PLib.sat[z].mode = PLib.ephem;
-                            PLib.sat[z].geostationary = PLib.Geostationary(z)
-                            PLib.sat[z].locator = PLib.sat_locator
-                            PLib.sat[z].signaldelay = PLib.signaldelay
-                            PLib.sat[z].signalloss = PLib.signalloss
-                            PLib.sat[z].dopplershift = PLib.dopplershift
+                            PLib.sat[z].geostationary = PLib.Geostationary(z);
+                            if (PLib.sat[z].geostationary === 0) {
+                                PLib.sat[z].geostationarytext = 'No';
+                            } else {
+                                PLib.sat[z].geostationarytext = 'Yes';
+                            }
+                            PLib.sat[z].locator = PLib.sat_locator;
+                            PLib.sat[z].signaldelay = PLib.signaldelay;
+                            PLib.sat[z].signalloss = PLib.signalloss;
+                            PLib.sat[z].dopplershift = PLib.dopplershift;
+                            PLib.sat[z].orbitnumber = PLib.rv;
+                            PLib.sat[z].footprint = PLib.fk;
+                            PLib.sat[z].range = PLib.sat_range;
+                            PLib.sat[z].rangerate = PLib.sat_range_rate;
+                            PLib.sat[z].orbitalphase = PLib.ma256;
             
             
                             var lng = 360 - PLib.isplong;

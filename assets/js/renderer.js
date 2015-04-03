@@ -14,23 +14,64 @@ var MIARENDERER = function() {
             }
         }
         
-        function updateInfo(data) {
+        function updateInfo(data) {            
             jQuery.each(data, function( index, satellite ) {
                 if (satellite.calculate) {    
-               
-                    jQuery('#noradid').html(satellite.catnum);
-                    jQuery('#name').html(satellite.name);
-                    
-                    jQuery('#latitude').html(satellite.latitude);
-                    jQuery('#longitude').html(satellite.longitude);
-                    jQuery('#locator').html(satellite.locator);
-                    jQuery('#doppler').html(satellite.dopplershift.toFixed(2));
-                    jQuery('#loss').html(satellite.signalloss.toFixed(2));
-                    jQuery('#delay').html(satellite.signaldelay.toFixed(2));
+                    displayTextFields(satellite);
                 }
             });            
         }
         
+        function displayTextFields(satellite) {
+            jQuery('[data-path]').each(function(index){
+                var path = jQuery(this).data('path');
+                
+                var value = getProperty(satellite, path);
+                
+                if (value !== undefined) {
+                    if (typeof value !== 'object') {
+                        var dp = jQuery(this).data('dp');
+                        if (dp !== undefined) {
+                            value = value.toFixed(dp);
+                        }                              
+                        jQuery(this).text(value);    
+                    } else {
+                        var text = '';
+                        var property = jQuery(this).data('prop');
+                        var sep = jQuery(this).data('sep');
+                        for (var i=0; i < value.length; i++) {
+                            text += value[i][property];
+                            if (i < value.length-1) {
+                                text += sep;    
+                            }    
+                        }
+                        jQuery(this).text(text);
+                    }
+                }
+            }); 
+        }
+        
+        function getProperty(obj, prop) {
+
+            var parts = prop.split('.'),
+                last = parts.pop(),
+                l = parts.length,
+                i = 1,
+                current = parts[0];
+
+            if (l == 0) {
+                return obj[prop];
+            }
+            while((obj = obj[current]) && i < l) {
+                current = parts[i];
+                i++;
+            }
+
+            if(obj) {
+                return obj[last];
+            }
+        } 
+           
     return {
     
         render : function(data) {

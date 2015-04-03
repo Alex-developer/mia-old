@@ -1,6 +1,7 @@
 <?php
 class listview {
     private $app = null;
+    private $name = 'List View';
     
     function __construct($app) {
         $this->app = $app;
@@ -9,7 +10,8 @@ class listview {
     public function render() {
         $this->app->render('index.html', array(
             'template' => 'listview/listview.html',
-            'ui' => 'modules/listview/listview.js'            
+            'ui' => 'modules/listview/listview.js',
+            'name' => $this->name                         
         ));        
     }
 }

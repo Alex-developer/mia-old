@@ -4,6 +4,11 @@
 }
 body {
   padding: 50px 0 0 0;
+  background: #001224;
+}
+
+body .container-fluid {
+  color: white;    
 }
 
 .navmenu {
@@ -70,28 +75,25 @@ body {
                 <div class="col-md-4"><img alt="settings" src="/assets/images/settings.png" /></div>
             </div>    
         </div>
-      <ul class="nav navmenu-nav">
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Views <b class="caret"></b></a>
-          <ul class="dropdown-menu navmenu-nav">
-            <li><a href="/threedview">3D</a></li>
-            <li><a href="/listview">List</a></li>
-            <li><a href="/polarview">Polar</a></li>
-            <li><a href="#">Passes</a></li>
-            <li><a href="#">Sky</a></li>
-            <li><a href="/timelineview">Timeline</a></li>
-            <li><a href="#">DX View</a></li>
+  
+        <br />
+        <div class="btn-group" style="width: 100%">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="width: 100%">
+            {{ name }} <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+                <li><a href="/threedview"><img alt="settings" src="/assets/images/earth53.png" /> 3D View</a></li>
+                <li><a href="/listview"><img alt="settings" src="/assets/images/list7.png" /> List View</a></li>
+                <li><a href="/polarview"><img alt="settings" src="/assets/images/compass43.png" /> Polar View</a></li>
+                <li><a href="/passesview"><img alt="settings" src="/assets/images/2442.png" /> Passes View</a></li>
+                <li><a href="/horizonview"><img alt="settings" src="/assets/images/landscape10.png" /> Horizon View</a></li>
+                <li><a href="/timelineview"><img alt="settings" src="/assets/images/time39.png" /> Timeline View</a></li>
+                <li><a href="/dxview"><img alt="settings" src="/assets/images/city16.png" /> DX View</a></li>
           </ul>
-        </li>
-      </ul>    
+        </div>
+        <br />
+        <br />
     
-    <a href="/threedview"><img alt="settings" src="/assets/images/earth53.png" /></a>
-    <a href="/listview"><img alt="settings" src="/assets/images/list7.png" /></a>
-    <a href="/polarview"><img alt="settings" src="/assets/images/compass43.png" /></a>
-    <img alt="settings" src="/assets/images/settings.png" />
-    <img alt="settings" src="/assets/images/settings.png" />
-    <img alt="settings" src="/assets/images/settings.png" />
-    <img alt="settings" src="/assets/images/settings.png" />
     
         <div role="tabpanel">
             <ul class="nav nav-tabs" role="tablist">
@@ -117,11 +119,11 @@ body {
                                 </tr>
                                 <tr>
                                     <td width="50%">Cat Num</td>
-                                    <td id="noradid" class="sat-info"></td>
+                                    <td data-path="catnum"></td>
                                 </tr>
                                 <tr>
                                     <td>Name</td>
-                                    <td id="name" class="sat-info"></td>
+                                    <td data-path="name"></td>
                                 </tr>
                                 <tr>
                                     <td>Owner</td>
@@ -129,91 +131,91 @@ body {
                                 </tr>
                                 <tr>
                                     <td>Period</td>
-                                    <td id="period" class="sat-info"></td>
+                                    <td ></td>
                                 </tr>
                                 <tr>
                                     <td>Inclination</td>
-                                    <td id="inclination" class="sat-info"></td>
+                                    <td ></td>
                                 </tr>
                                 <tr>
                                     <td>Apogee</td>
-                                    <td id="apogee" class="sat-info"></td>
+                                    <td ></td>
                                 </tr>
                                 <tr>
                                     <td>Perigee</td>
-                                    <td id="perigee" class="sat-info"></td>
+                                    <td ></td>
                                 </tr>
                                 <tr>
                                     <th colspan="2">Calculated Values</th>
                                 </tr>
                                 <tr>
                                     <td>Latitude</td>
-                                    <td id="latitude" class="sat-info"></td>
+                                    <td data-path="latitude"></td>
                                 </tr>
                                 <tr>
                                     <td>Longitude</td>
-                                    <td id="longitude" class="sat-info"></td>
+                                    <td data-path="longitude"></td>
                                 </tr>
                                 <tr>
                                     <td>Locator</td>
-                                    <td id="locator" class="sat-info"></td>
+                                    <td data-path="locator"></td>
                                 </tr>                    
                                 <tr>
                                     <td>Altitude</td>
-                                    <td id="altitude" class="sat-info"></td>
+                                    <td data-path="altitude" data-dp="2"></td>
                                 </tr>
                                 <tr>
                                     <td>Orbit Number</td>
-                                    <td id="orbitnumber" class="sat-info"></td>
+                                    <td data-path="orbitnumber"></td>
                                 </tr>
                                 <tr>
                                     <td>Visible</td>
-                                    <td id="visible" class="sat-info"></td>
+                                    <td data-path="visibility"></td>
                                 </tr>
                                 
                                 <tr>
                                     <td>Velocity</td>
-                                    <td id="velocity" class="sat-info"></td>
+                                    <td data-path="velocity" data-dp="2"></td>
                                 </tr>
                                 <tr>
                                     <td>Footprint</td>
-                                    <td id="footprint" class="sat-info"></td>
+                                    <td data-path="footprint" data-dp="2"></td>
                                 </tr>
                                 <tr>
                                     <td>Range</td>
-                                    <td id="range" class="sat-info"></td>
+                                    <td data-path="range" data-dp="2"></td>
                                 </tr>
                                 <tr>
                                     <td>Range rate</td>
-                                    <td id="rangerate" class="sat-info"></td>
+                                    <td data-path="rangerate" data-dp="2"></td>
                                 </tr>
                                 <tr>
                                     <td>Doppler Shift (Hz)</td>
-                                    <td id="doppler" class="sat-info"></td>
+                                    <td data-path="dopplershift" data-dp="2"></td>
                                 </tr>
                                 <tr>
                                     <td>Signal Loss (dB)</td>
-                                    <td id="loss" class="sat-info"></td>
+                                    <td data-path="signalloss" data-dp="2"></td>
                                 </tr>
                                 <tr>
                                     <td>Signal Delay (ms)</td>
-                                    <td id="delay" class="sat-info"></td>
+                                    <td data-path="signaldelay" data-dp="2"></td>
                                 </tr>                                                               
                                 <tr>
                                     <td>Elevation</td>
-                                    <td id="elevation" class="sat-info"></td>
+                                    <td data-path="elevation" data-dp="2"></td>
                                 </tr>
                                 <tr>
                                     <td>Azimuth</td>
-                                    <td id="azimuth" class="sat-info"></td>
+                                    <td data-path="azimuth" data-dp="2"></td>
                                 </tr>
                                 <tr>
                                     <td>Orbital Phase</td>
-                                    <td id="orbitalphase" class="sat-info"></td>
+                                    <td data-path="orbitalphase"></td>
                                 </tr>
                                 <tr>
                                     <td>Geostationary</td>
-                                    <td id="geostationary" class="sat-info"></td>
+                                    <td data-path="geostationarytext"></td>
                                 </tr>                    
                             </table>                 
                         </div> 
