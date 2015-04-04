@@ -23,7 +23,9 @@ var miaview = function() {
                  //   url : '//a.tile.openstreetmap.org/'
                // }),
                 // Use high-res stars downloaded from https://github.com/AnalyticalGraphicsInc/cesium-assets
-                skyBox : new Cesium.SkyBox({
+                
+                
+                /*skyBox : new Cesium.SkyBox({
                     sources : {
                       positiveX : '/assets/images/stars/TychoSkymapII.t3_08192x04096/TychoSkymapII.t3_08192x04096_80_px.jpg',
                       negativeX : '/assets/images/stars/TychoSkymapII.t3_08192x04096/TychoSkymapII.t3_08192x04096_80_mx.jpg',
@@ -32,21 +34,38 @@ var miaview = function() {
                       positiveZ : '/assets/images/stars/TychoSkymapII.t3_08192x04096/TychoSkymapII.t3_08192x04096_80_pz.jpg',
                       negativeZ : '/assets/images/stars/TychoSkymapII.t3_08192x04096/TychoSkymapII.t3_08192x04096_80_mz.jpg'
                     }
-                }),
+                }),*/
+                
+                skyBox : new Cesium.SkyBox({
+                    sources : {
+                      positiveX : '/assets/images/stars/spacebook/Version2_dark_px.jpg',
+                      negativeX : '/assets/images/stars/spacebook/Version2_dark_mx.jpg',
+                      positiveY : '/assets/images/stars/spacebook/Version2_dark_py.jpg',
+                      negativeY : '/assets/images/stars/spacebook/Version2_dark_my.jpg',
+                      positiveZ : '/assets/images/stars/spacebook/Version2_dark_pz.jpg',
+                      negativeZ : '/assets/images/stars/spacebook/Version2_dark_mz.jpg'
+                    }
+                }),                
+                
                 // Show Columbus View map with Web Mercator projection
                 mapProjection : new Cesium.WebMercatorProjection()
             });
 
-            var terrainProvider = new Cesium.CesiumTerrainProvider({
+         /*   var terrainProvider = new Cesium.CesiumTerrainProvider({
                 url : '//assets.agi.com/stk-terrain/world',
                 requestVertexNormals: true,
                 requestWaterMask: true
             });
-            _viewer.terrainProvider = terrainProvider;
+            _viewer.terrainProvider = terrainProvider;*/
             _viewer.scene.globe.enableLighting = true; 
+            _viewer.scene.moon = new Cesium.Moon();
             
             resize();   
         }   
+        
+        function initViewOptions() {
+            
+        }
         
         function resize(width, height) {            
             if (typeof width === 'undefined' || typeof height === 'undefined') {

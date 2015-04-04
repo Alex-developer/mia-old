@@ -151,7 +151,7 @@ var miaview = function() {
                         
                         if (!drawEndArrow) {
                             if (drawStartArrow) {
-                                drawArrow(postPoints, 'green', opacity);
+                                drawArrow(points, 'green', opacity);
                                 drawEndArrow = true; 
                             }                                       
                         }                                   

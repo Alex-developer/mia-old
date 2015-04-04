@@ -11,7 +11,8 @@ class polarview {
         $this->app->render('index.html', array(
             'template' => 'polarview/polarview.html',
             'ui' => 'modules/polarview/polarview.js',
-            'name' => $this->name            
+            'name' => $this->name,
+            'viewoptions' => 'polarview/viewoptions.html'                        
         ));        
     }
 }

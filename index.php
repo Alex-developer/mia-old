@@ -33,6 +33,10 @@ $app->get('/timelineview', function () use ($app) {
 $app->get('/threedview', function () use ($app) {
     runRoute('threedview', $app);
 });
+
+$app->get('/options', function () use ($app) {
+    runRoute('options', $app);
+});
            
 $app->run();
 

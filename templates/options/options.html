@@ -1,0 +1,99 @@
+ <style>
+ .whitepanel {
+  height: 100%;
+  width: 100%;
+  color: black;
+  background: white;
+}
+</style>
+<div class="whitepanel">
+    <div role="tabpanel">
+
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#general" aria-controls="general" role="tab" data-toggle="tab">General</a></li>
+            <li role="presentation"><a href="#views" aria-controls="views" role="tab" data-toggle="tab">Views</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="general">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 cold-sm-12">
+                            <h4>Observers</h4>
+                            
+                            <h5>Main Observer</h5>
+                            <div class="row form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-6">Auto Locate</div>
+                                <div class="col-md-6 col-sm-6 col-xs-6"><input type="checkbox" id="observergelocate" value="on"></div>
+                            </div>
+                            
+                            <div class="row form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-6">Location name</div>
+                                <div class="col-md-6 col-sm-6 col-xs-6"><input size=15 id="observername" class="observerhome"></div>
+                            </div>                            
+                            
+                            <div class="row form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-6">Location Latitude</div>
+                                <div class="col-md-6 col-sm-6 col-xs-6"><input size=20 id="observerlatitude" class="observerhome"></div>
+                            </div>
+                            
+                            <div class="row form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-6">Location Longitude</div>
+                                <div class="col-md-6 col-sm-6 col-xs-6"><input size=20 id="observerlongitude" class="observerhome"></div>
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-6">Location Altitude</div>
+                                <div class="col-md-6 col-sm-6 col-xs-6"><input size=10 id="observeraltitude" class="observerhome"></div>
+                            </div>
+                            
+                            <h5>Mutual Observer</h5>
+                            <div class="row form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-6">Location name</div>
+                                <div class="col-md-6 col-sm-6 col-xs-6"><input size=15 id="mutualobservername" class="observerhome"></div>
+                            </div>                            
+                            
+                            <div class="row form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-6">Location Latitude</div>
+                                <div class="col-md-6 col-sm-6 col-xs-6"><input size=20 id="mutualobserverlatitude" class="observerhome"></div>
+                            </div>
+                            
+                            <div class="row form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-6">Location Longitude</div>
+                                <div class="col-md-6 col-sm-6 col-xs-6"><input size=20 id="mutualobserverlongitude" class="observerhome"></div>
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-6">Location Altitude</div>
+                                <div class="col-md-6 col-sm-6 col-xs-6"><input size=10 id="mutualobserveraltitude" class="observerhome"></div>
+                            </div>                                                        
+                        </div>
+                        <div class="col-md-6 cold-sm-12">
+                            <h4>Debugging Mode</h4>
+                            <div class="row form-group">
+                                <div class="col-md-6 col-sm-6 col-xs-6">Enable Debug View</div>
+                                <div class="col-md-6 col-sm-6 col-xs-6"><input type="checkbox" id="debugger-show" value="on" class="options-cb"></div>
+                            </div>                            
+                            <div class="row form-group">
+                                <p class="col-md-12 col-sm-12 col-xs-12"><strong>NOTE:</strong> This is only intended for developers to examine internal data from the SPM engines.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="views">
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#list" aria-controls="list" role="tab" data-toggle="tab">List</a></li>
+                    <li role="presentation"><a href="#threed" aria-controls="threed" role="tab" data-toggle="tab">3D</a></li>
+                    <li role="presentation"><a href="#polar" aria-controls="polar" role="tab" data-toggle="tab">Polar</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="list">...</div>
+                    <div role="tabpanel" class="tab-pane" id="threed">...</div>
+                    <div role="tabpanel" class="tab-pane" id="polar">...</div>
+                </div>        
+            </div>
+        </div>
+
+    </div>
+</div>

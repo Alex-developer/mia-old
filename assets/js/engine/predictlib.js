@@ -1778,7 +1778,7 @@ var PLib =
                             }
             
                             if (PLib.sat[z].orbit.length === 0) {              
-                                var increment = 0.00035;
+                                var increment = 0.00015;
                                 //increment = increment * 3;                        
                                 while (PLib.sat[z].orbitNumber === PLib.rv) {
                                     PLib.daynum -= increment;

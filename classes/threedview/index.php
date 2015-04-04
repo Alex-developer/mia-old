@@ -11,7 +11,8 @@ class threedview {
         $this->app->render('index.html', array(
             'template' => 'threedview/threedview.html',
             'ui' => 'modules/threedview/threedview.js',
-            'name' => $this->name                         
+            'name' => $this->name,
+            'viewoptions' => 'threedview/viewoptions.html'                        
         ));        
     }
 }

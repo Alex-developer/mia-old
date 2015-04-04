@@ -72,12 +72,12 @@ body .container-fluid {
             <div class="row">
                 <div class="col-md-4"><img alt="home" src="/assets/images/logo/mia-head.png" /></div>
                 <div class="col-md-4">Mia Sat</div>
-                <div class="col-md-4"><img alt="settings" src="/assets/images/settings.png" /></div>
+                <div class="col-md-4"><a href="/options"><img alt="settings" src="/assets/images/settings.png" /></a></div>
             </div>    
         </div>
   
         <br />
-        <div class="btn-group" style="width: 100%">
+        <div class="btn-group btn-block">
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="width: 100%">
             {{ name }} <span class="caret"></span>
           </button>
@@ -93,6 +93,7 @@ body .container-fluid {
         </div>
         <br />
         <br />
+        
     
     
         <div role="tabpanel">
@@ -225,7 +226,11 @@ body .container-fluid {
                 
                 </div>
                 
-                <div role="tabpanel" class="tab-pane" id="viewoptions"></div>
+                <div role="tabpanel" class="tab-pane" id="viewoptions">
+                {% if viewoptions is defined %}
+                {% include viewoptions %}
+                {% endif %}
+                </div>
  
             </div>
   

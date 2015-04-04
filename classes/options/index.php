@@ -1,7 +1,6 @@
 <?php
-class index {
+class options {
     private $app = null;
-    private $name = 'Select View';
     
     function __construct($app) {
         $this->app = $app;
@@ -9,9 +8,8 @@ class index {
         
     public function render() {
         $this->app->render('index.html', array(
-            'template' => 'home/home.html',
-            'ui' => 'modules/home/home.js',
-            'name' => $this->name
+            'template' => 'options/options.html',
+            'ui' => 'modules/options/options.js'                       
         ));        
     }
 }
