@@ -235,7 +235,7 @@ var miaview = function() {
                     y : pos.y + 5,
                     text : satellite.satname,
                     fontSize : 8,
-                    fontFamily : 'Verdana',
+                    fontFamily : 'Lato',
                     fill : '#eee',
                     opacity: opacity
                 }));  
@@ -639,9 +639,3 @@ var miaview = function() {
         }
     }
 }();
-
-jQuery(document).ready(function() {
-    'use strict';   
-
-    miaview.init();
-});

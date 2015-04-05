@@ -81,6 +81,9 @@ var MIABOOTSTRAP = function() {
         run : function() {
             initWorkers();
             getPosition().then(function(e){
+                if (miaview.init !== undefined) {
+                    miaview.init();
+                }
             });
         }
     }
