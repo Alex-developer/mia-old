@@ -6,14 +6,13 @@ var miaview = function() {
                 <table class="table small" id="listviewtable">  \
                     <thead>                                     \
                         <tr>                                    \
-                            <th>satname</th>                    \
+                            <th>Name</th>                    \
                             <th>visibility</th>                 \
-                            <th>azimuth</th>                    \
-                            <th>Ele</th>                        \
-                            <th>Lat</th>                        \
-                            <th>Lon</th>                        \
-                            <th>Alt</th>                        \
-                            <th>Vel.</th>                       \
+                            <th>Azimuth</th>                    \
+                            <th>Elevation</th>                        \
+                            <th>Latitude</th>                        \
+                            <th>Longitude</th>                        \
+                            <th>Altitude</th>                        \
                             <th>Next Event</th>                 \
                         </tr>                                   \
                     </thead>                                    \
@@ -28,32 +27,32 @@ var miaview = function() {
     
                 if (satellite.calculate) {
                     if (jQuery('#listview' + satellite.catnum ).length === 0) {
-               jQuery('<tr>', {'id': 'listview' + satellite.catnum }).html(
-                    jQuery('td').text(item.rank),
-                    jQuery('td').text(item.content),
-                    jQuery('td').text(item.UID)
-                ).appendTo('#records_table');
-                                                                                                                        
+                       var tr = jQuery('<tr>', {id: 'listview' + satellite.catnum }).append(
+                            jQuery('<td>',{class: 'catname'}).text('aa'),
+                            jQuery('<td>',{class: 'visibility'}),
+                            jQuery('<td>',{class: 'azimuth'}),
+                            jQuery('<td>',{class: 'elevation'}),
+                            jQuery('<td>',{class: 'latitude'}),
+                            jQuery('<td>',{class: 'longitude'}),
+                            jQuery('<td>',{class: 'altitude'}),
+                            jQuery('<td>',{class: 'nextevent'})
+                        ).appendTo('#listviewtable');
                     }
-    table += '            <tr>                   \
-                <td>' + satellite.satname + '</td>                 \
-                <td>' + satellite.visibility + '</td>            \
-                <td>' + satellite.azimuth.toFixed(2) + '</td>                \
-                <td>' + satellite.elevation.toFixed(2) + '</td>                \
-                <td>' + MIAUTIL.convertDecDegLat(satellite.latitude) + '</td>           \
-                <td>' + MIAUTIL.convertDecDegLon(satellite.longitude) + '</td>           \
-                <td>' + satellite.altitude.toFixed(2) + '</td>           \          \
-                <td>' + satellite.velocity.toFixed(2) + '</td>           \          \           \
-            </tr>';
-    }
-});           
-
-
-table += '        </tbody>\
-      </table>\
-    </div>';
-
-               
+                    
+                    jQuery('#listview' + satellite.catnum + ' .catname').text(satellite.satname);
+                    jQuery('#listview' + satellite.catnum + ' .visibility').text(satellite.visibility);
+                    jQuery('#listview' + satellite.catnum + ' .azimuth').text(satellite.azimuth.toFixed(2));
+                    jQuery('#listview' + satellite.catnum + ' .elevation').text(satellite.elevation.toFixed(2));
+                    jQuery('#listview' + satellite.catnum + ' .latitude').html(MIAUTIL.convertDecDegLat(satellite.latitude, true));
+                    jQuery('#listview' + satellite.catnum + ' .longitude').html(MIAUTIL.convertDecDegLat(satellite.longitude, true));
+                    jQuery('#listview' + satellite.catnum + ' .altitude').text(satellite.altitude.toFixed(2));                    
+                    jQuery('#listview' + satellite.catnum + ' .nextevent').text('');                    
+                } else {
+                    if (jQuery('#listview' + satellite.catnum).length !== 0) {
+                        jQuery('#listview' + satellite.catnum).remove();
+                    }                    
+                }
+            });           
         }
         
     return {

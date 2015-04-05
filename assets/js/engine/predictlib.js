@@ -1739,8 +1739,7 @@ var PLib =
                             PLib.sat[z].elevation = PLib.sat_ele;
                             PLib.sat[z].azimuth = PLib.sat_azi;
                             PLib.sat[z].orbitalPhase = PLib.ma256;
-                            PLib.sat[z].latitude = PLib.isplat;
-                            PLib.sat[z].longitude = PLib.isplong;
+                            PLib.sat[z].latitude = PLib.sat_lat;
                             PLib.sat[z].altitude = PLib.sat_alt;
                             PLib.sat[z].velocity = PLib.sat_vel;
                             PLib.sat[z].mode = PLib.ephem;
@@ -1761,8 +1760,8 @@ var PLib =
                             PLib.sat[z].orbitalphase = PLib.ma256;
             
             
-                            var lng = 360 - PLib.isplong;
-                            if (lng > 180) lng = -PLib.isplong;
+                            var lng = 360 - PLib.sat_lat;
+                            if (lng > 180) lng = -PLib.sat_lat;
                             PLib.sat[z].longitude = lng;
 
                             PLib.sat[z].slantRange = PLib.irk;
