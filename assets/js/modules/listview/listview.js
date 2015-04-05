@@ -1,18 +1,19 @@
 var miaview = function() {
     'use strict';
 
+        var name = 'List View';
+        
         function initView() {
-            var table = '<div class="table-responsive">         \
-                <table class="table small" id="listviewtable">  \
+            var table = '<table class="table" id="listviewtable">  \
                     <thead>                                     \
                         <tr>                                    \
-                            <th>Name</th>                    \
+                            <th>Name</th>                       \
                             <th>visibility</th>                 \
                             <th>Azimuth</th>                    \
-                            <th>Elevation</th>                        \
-                            <th>Latitude</th>                        \
-                            <th>Longitude</th>                        \
-                            <th>Altitude</th>                        \
+                            <th>Elevation</th>                  \
+                            <th>Latitude</th>                   \
+                            <th>Longitude</th>                  \
+                            <th>Altitude</th>                   \
                             <th>Next Event</th>                 \
                         </tr>                                   \
                     </thead>                                    \
@@ -59,6 +60,8 @@ var miaview = function() {
         
         updateInfo: true,
     
+        viewName: name,
+            
         render : function(data) {
             render(data);
         },

@@ -87,6 +87,10 @@ var miaview = function() {
         });
                  
     return {
+        viewName: name,
+        
+        updateInfo: true,
+                
         init : function() {
             initView();    
         },
@@ -96,9 +100,3 @@ var miaview = function() {
         }
     }
 }();
-
-jQuery(document).ready(function() {
-    'use strict';   
-
-    miaview.init();
-});

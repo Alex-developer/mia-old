@@ -1,10 +1,13 @@
 var miaview = function() {
     'use strict';
 
-    private $name = 'Select View';
+    var name = 'Select View';
 
     return {
-    
+        viewName: name,
+
+        updateInfo: false,
+                    
         render : function(data) {
         }
     }

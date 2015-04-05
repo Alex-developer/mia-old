@@ -1,6 +1,8 @@
 var miaview = function() {
     'use strict';
 
+    var name = 'Polar View';
+    
     var _margin = 40;
     var _twoPi = 2 * Math.PI;
     var _de2ra = 0.0174532925;
@@ -627,7 +629,10 @@ var miaview = function() {
     });
                
     return {
-    
+        viewName: name,
+        
+        updateInfo: true,
+                
         render : function(data) {
             render(data)
         },

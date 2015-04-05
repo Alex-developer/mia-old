@@ -1,100 +1,19 @@
- <style>
- html, body {
-  height: 100%;
-  font-family: 'Lato', sans-serif;
-}
-
-.h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
-  font-weight: 700;
-}
-
-body {
-  padding: 50px 0 0 0;
-  background: #001224;
-}
-
-body .container-fluid {
-  color: white;    
-}
-
-.navmenu {
-  padding-top: 50px;
-}
-
-.navbar {
-  display: block;
-  text-align: center;
-}
-.navbar-brand {
-  display: inline-block;
-  float: none;
-}
-.navbar-toggle {
-  position: absolute;
-  float: left;
-  margin-left: 15px;
-}
-
-.container {
-  max-width: 100%;
-}
-
-@media (min-width: 1px) {
-  .navbar-toggle {
-    display: block !important;
-  }
-  .navmenu-header {
-    display: none !important;      
-  }  
-}
-
-@media (min-width: 992px) {
-  body {
-    padding: 0 0 0 300px;
-  }
-  .navmenu {
-    padding-top: 0;
-  }
-  .navbar {
-    display: none !important; /* IE8 fix */
-  }
-  .navmenu-header {
-    display: block !important;      
-  }  
-}
-
-.navmenu-nav.dropdown-menu { position:relative; }
-
-.navmenu .container .row {
-    padding-top: 5px;
-}
- </style>
- 
- 
- 
- 
-     <div class="navmenu navmenu-default navmenu-fixed-left offcanvas-sm">
-        <div class="container navmenu-header">
-            <div class="row">
-                <div class="col-md-4"><img alt="home" src="/assets/images/logo/mia-head.png" /></div>
-                <div class="col-md-4">Mia Sat</div>
-                <div class="col-md-4"><a href="/options"><img alt="settings" src="/assets/images/settings.png" /></a></div>
-            </div>    
-        </div>
+    <div class="navmenu navmenu-default navmenu-fixed-left offcanvas-sm">
+        <a class="navmenu-brand visible-md visible-lg" href="#">Mia Sat</a>
   
         <br />
         <div class="btn-group btn-block">
           <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="width: 100%">
-            {{ name }} <span class="caret"></span>
+            <span id="currentview">Select View</span> <span class="caret"></span>
           </button>
-          <ul class="dropdown-menu" role="menu">
-                <li><a href="/threedview"><img alt="settings" src="/assets/images/earth53.png" /> 3D View</a></li>
-                <li><a href="/listview"><img alt="settings" src="/assets/images/list7.png" /> List View</a></li>
-                <li><a href="/polarview"><img alt="settings" src="/assets/images/compass43.png" /> Polar View</a></li>
-                <li><a href="/passesview"><img alt="settings" src="/assets/images/2442.png" /> Passes View</a></li>
-                <li><a href="/horizonview"><img alt="settings" src="/assets/images/landscape10.png" /> Horizon View</a></li>
-                <li><a href="/timelineview"><img alt="settings" src="/assets/images/time39.png" /> Timeline View</a></li>
-                <li><a href="/dxview"><img alt="settings" src="/assets/images/city16.png" /> DX View</a></li>
+          <ul class="dropdown-menu" role="menu" id="viewmenu">
+                <li><a href="#" class="viewloader" data-view="threedview"><img alt="settings" src="/assets/images/earth53.png" /> 3D View</a></li>
+                <li><a href="#" class="viewloader" data-view="listview"><img alt="settings" src="/assets/images/list7.png" /> List View</a></li>
+                <li><a href="#" class="viewloader" data-view="polarview"><img alt="settings" src="/assets/images/compass43.png" /> Polar View</a></li>
+                <li><a href="#" class="viewloader" data-view="passesview"><img alt="settings" src="/assets/images/2442.png" /> Passes View</a></li>
+                <li><a href="#" class="viewloader" data-view="horizonview"><img alt="settings" src="/assets/images/landscape10.png" /> Horizon View</a></li>
+                <li><a href="#" class="viewloader" data-view="timelineview"><img alt="settings" src="/assets/images/time39.png" /> Timeline View</a></li>
+                <li><a href="#" class="viewloader" data-view="dxview"><img alt="settings" src="/assets/images/city16.png" /> DX View</a></li>
           </ul>
         </div>
         <br />
@@ -244,15 +163,11 @@ body .container-fluid {
         </div>
     </div>               
 
-    
-    
-    <div class="navbar navbar-default navbar-fixed-top hidden-md hidden-lg">    
+    <div class="navbar navbar-default navbar-fixed-top hidden-md hidden-lg">
       <button type="button" class="navbar-toggle" data-toggle="offcanvas" data-target=".navmenu">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-
-      <a class="navbar-brand" href="#"><img alt="home" src="/assets/images/logo/mia-head.png" /></a>   
-      <a class="navbar-brand pull-right" href="#"><img alt="settings" src="/assets/images/settings.png" /></a>    
+      <a class="navbar-brand" href="#">Mia Sat</a>
     </div>
