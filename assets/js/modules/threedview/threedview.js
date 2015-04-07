@@ -2,9 +2,17 @@ var miaview = function() {
     'use strict';
 
     var _viewer;
+    var entity;
     
         function render(data) {
-             
+            jQuery.each(data, function( index, satellite ) {
+                if (satellite.calculate) {
+                    if (satellite.catnum == 25544) {
+                        var position = Cesium.Cartesian3.fromDegrees(satellite.longitude, satellite.latitude, satellite.altitude * 1000);
+                        entity.position  = position;
+                    }                        
+                }
+            });             
         }
 
         function initView() {
@@ -51,16 +59,36 @@ var miaview = function() {
                 mapProjection : new Cesium.WebMercatorProjection()
             });
 
-         /*   var terrainProvider = new Cesium.CesiumTerrainProvider({
+            var terrainProvider = new Cesium.CesiumTerrainProvider({
                 url : '//assets.agi.com/stk-terrain/world',
                 requestVertexNormals: true,
                 requestWaterMask: true
             });
-            _viewer.terrainProvider = terrainProvider;*/
+            _viewer.terrainProvider = terrainProvider;
             _viewer.scene.globe.enableLighting = true; 
             _viewer.scene.moon = new Cesium.Moon();
             
             resize();   
+            
+    var url = '/assets/models/tiefighter/tie_fighter.gltf';
+    var position = Cesium.Cartesian3.fromDegrees(0, 0, 1000000);
+    var heading = Cesium.Math.toRadians(0);
+    var pitch = 0;
+    var roll = 0;
+    var orientation = Cesium.Transforms.headingPitchRollQuaternion(position, heading, pitch, roll);
+
+    entity = _viewer.entities.add({
+        name : url,
+        position : position,
+        orientation : orientation,
+        model : {
+            uri : url,
+            minimumPixelSize : 128,
+            scale: 1
+        }
+    });
+
+_viewer.extend(Cesium.viewerCesiumInspectorMixin);            
         }   
         
         function initViewOptions() {
