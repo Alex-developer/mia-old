@@ -1760,16 +1760,16 @@ var PLib =
                             PLib.sat[z].orbitalphase = PLib.ma256;
             
             
-                            var lng = 360 - PLib.sat_lat;
-                            if (lng > 180) lng = -PLib.sat_lat;
-                            PLib.sat[z].longitude = lng;
+                            var lng = 360 - PLib.sat_lon;
+                            if (lng > 180) lng = -PLib.sat_lon;
+                            PLib.sat[z].longitude = PLib.sat_lon;
 
                             PLib.sat[z].slantRange = PLib.irk;
                             PLib.sat[z].orbitNumber = PLib.rv;
                             PLib.sat[z].visibility = PLib.findsun;
 
                             if (PLib.sat[z].passes === undefined) {
-                                PLib.sat[z].passes = PLib.getTodaysPassesForSatellite(z);
+                                PLib.sat[z].passes = PLib.getTodaysPassesForSatellite(z);    
                             }
                             
                             if (PLib.sat[z].orbit === undefined) {
@@ -1796,15 +1796,15 @@ var PLib =
                                     orbitPoint.elevation = PLib.sat_ele;
                                     orbitPoint.azimuth = PLib.sat_azi;
                                     orbitPoint.orbitalPhase = PLib.ma256;
-                                    orbitPoint.latitude = PLib.isplat;
+                                    orbitPoint.latitude = PLib.sat_lat;
                                     orbitPoint.altitude = PLib.sat_alt;
                                     orbitPoint.velocity = PLib.sat_vel;
                                     orbitPoint.mode = PLib.ephem;
 
-                                    var lng = 360 - PLib.isplong;
-                                    if (lng > 180) lng = -PLib.isplong;
-                                    orbitPoint.longitude = lng;
-
+                                    var lng = 360 - PLib.sat_lon;
+                                    if (lng > 180) lng = -PLib.sat_lon;
+                                    orbitPoint.longitude = PLib.sat_lon;
+                                    
                                     orbitPoint.slantRange = PLib.irk;
                                     orbitPoint.orbitNumber = PLib.rv;
                                     orbitPoint.visibility = PLib.findsun;

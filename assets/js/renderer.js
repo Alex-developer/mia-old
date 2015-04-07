@@ -34,7 +34,17 @@ var MIARENDERER = function() {
                         if (dp !== undefined) {
                             value = value.toFixed(dp);
                         }                              
-                        jQuery(this).text(value);    
+
+                        var type = jQuery(this).data('type');
+                        if (type !== undefined) {
+                            switch (type) {
+                                case 'pos':
+                                    value = MIAUTIL.convertDecDegLat(value, true);
+                                    break;
+                            }
+                        }
+                        
+                        jQuery(this).html(value);    
                     } else {
                         var text = '';
                         var property = jQuery(this).data('prop');

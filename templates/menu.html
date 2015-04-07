@@ -76,11 +76,11 @@
                                 </tr>
                                 <tr>
                                     <td>Latitude</td>
-                                    <td data-path="latitude"></td>
+                                    <td data-path="latitude" data-type="pos"></td>
                                 </tr>
                                 <tr>
                                     <td>Longitude</td>
-                                    <td data-path="longitude"></td>
+                                    <td data-path="lng" data-type="pos"></td>
                                 </tr>
                                 <tr>
                                     <td>Locator</td>
@@ -152,9 +152,6 @@
                 </div>
                 
                 <div role="tabpanel" class="tab-pane" id="viewoptions">
-                {% if viewoptions is defined %}
-                {% include viewoptions %}
-                {% endif %}
                 </div>
  
             </div>

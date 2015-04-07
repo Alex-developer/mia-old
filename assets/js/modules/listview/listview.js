@@ -45,7 +45,7 @@ var miaview = function() {
                     jQuery('#listview' + satellite.catnum + ' .azimuth').text(satellite.azimuth.toFixed(2));
                     jQuery('#listview' + satellite.catnum + ' .elevation').text(satellite.elevation.toFixed(2));
                     jQuery('#listview' + satellite.catnum + ' .latitude').html(MIAUTIL.convertDecDegLat(satellite.latitude, true));
-                    jQuery('#listview' + satellite.catnum + ' .longitude').html(MIAUTIL.convertDecDegLat(satellite.longitude, true));
+                    jQuery('#listview' + satellite.catnum + ' .longitude').html(MIAUTIL.convertDecDegLat(satellite.lng, true));
                     jQuery('#listview' + satellite.catnum + ' .altitude').text(satellite.altitude.toFixed(2));                    
                     jQuery('#listview' + satellite.catnum + ' .nextevent').text('');                    
                 } else {

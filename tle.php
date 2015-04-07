@@ -8,7 +8,7 @@
  $tles = array();
  while ($tleArray[$pos] != '') {
      
-     $tle = array($tleArray[$pos], $tleArray[$pos+1], $tleArray[$pos+2]);
+     $tle = array(trim($tleArray[$pos]), $tleArray[$pos+1], $tleArray[$pos+2]);
      $tles[] = $tle;
      $pos+= 3;
  }

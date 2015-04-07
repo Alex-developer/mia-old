@@ -1,10 +1,12 @@
 var miaview = function() {
     'use strict';
 
+    var name = '3D View';
+            
     var _viewer;
     
-   // var url = '/assets/models/tiefighter/tie_fighter.gltf';
-    var url = '/assets/models/uhfsat/uhfsat.gltf';
+   var url = '/assets/models/tiefighter/tie_fighter.gltf';
+    //var url = '/assets/models/uhfsat/uhfsat.gltf';
     var _position;
     var _orientation;
     var heading = Cesium.Math.toRadians(0);
@@ -13,6 +15,19 @@ var miaview = function() {
 
     
     var entity;
+    
+    function makeDescription(satellite) {
+        var html = '<table><tr><th>#</th><th>AOS</th><th>LOS</th></tr>';
+        jQuery.each(satellite.passes, function(key, value){
+            html += '<tr>';
+            html += '<td>' + value.passNo + '</td>';
+            html += '<td>' + value.dateTimeStart + '</td>';
+            html += '<td>' + value.dateTimeEnd + '</td>';
+            html += '</tr>';
+        });
+        html += '</table>';
+        return html;    
+    }
     
         function render(data) {
             jQuery.each(data, function( index, satellite ) {
@@ -25,29 +40,61 @@ var miaview = function() {
                     _orientation = Cesium.Transforms.headingPitchRollQuaternion(_position, heading, pitch, roll);
                     var entity = _viewer.entities.getById(catalogNumber);
                     if (entity === undefined) {
-                        entity = _viewer.entities.add({
+                        entity = _viewer.entities.add(
+                        {
                             id: catalogNumber,
-                            name : url,
+                            description: makeDescription(satellite),
+                            name : satellite.name,
                             position : _position,
                             orientation : _orientation,
                             model : {
                                 uri : url,
-                                minimumPixelSize : 128,
+                                minimumPixelSize : 32,
                                 scale: 1
                             }
                         });                        
+    console.log('added ' + catalogNumber);                    
+
                     } else {
                         entity.position = _position;
-                    }                        
+                    }  
+                    
+                    updateOrbit(satellite);                      
                 } else {
-                    var entity = _viewer.entities.getById(catalogNumber);
-                    if (entity !== undefined) {
-                        _viewer.entities.removeById();
-                    }                    
+                    _viewer.entities.removeById(catalogNumber);
+                    _viewer.entities.removeById(satellite.catnum + 'orbit');
                 }
             });             
         }
 
+        function updateOrbit(satellite) {
+            var orbit = satellite.orbit;
+            var orbitId = satellite.catnum + 'orbit';
+            
+            var entity = _viewer.entities.getById(orbitId);
+            if (entity === undefined) {
+                
+                var points = [];
+                jQuery.each(orbit, function(key, value){
+                    points.push(
+                        Cesium.Cartesian3.fromDegrees(value.longitude, value.latitude, value.altitude*1000)
+                    );   
+                });
+                
+                
+                entity = _viewer.entities.add({
+                    polyline : {
+                        id: orbitId,
+                        positions : points,
+                        width : 1,
+                        followSurface : false,
+                        material : Cesium.Color.RED
+                    }                    
+                });
+            }            
+            
+        }
+        
         function initView() {
             _viewer = new Cesium.Viewer('cesiumContainer', {
                 timeline: false,
@@ -104,7 +151,25 @@ var miaview = function() {
             resize();   
             
 
-            _viewer.extend(Cesium.viewerCesiumInspectorMixin);            
+           // _viewer.extend(Cesium.viewerCesiumInspectorMixin);  
+            
+            jQuery('#viewoptions').on('click','.3dviewchange', function(e){
+                var newMode = jQuery(this).data('view');
+                switch (newMode) {
+                    case '3d':
+                        _viewer.scene.morphTo3D(); 
+                        break;
+                        
+                    case '2d':
+                        _viewer.scene.morphTo2D(); 
+                        break;
+
+                    case 'columbus':
+                        _viewer.scene.morphToColumbusView(); 
+                        break;
+                    
+                }    
+            });        
         }   
         
         function initViewOptions() {
@@ -131,9 +196,9 @@ var miaview = function() {
         });
                  
     return {
-        viewName: name,
-        
         updateInfo: true,
+    
+        viewName: name,
                 
         init : function() {
             initView();    
