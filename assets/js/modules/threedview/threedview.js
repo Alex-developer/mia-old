@@ -2,15 +2,48 @@ var miaview = function() {
     'use strict';
 
     var _viewer;
+    
+   // var url = '/assets/models/tiefighter/tie_fighter.gltf';
+    var url = '/assets/models/uhfsat/uhfsat.gltf';
+    var _position;
+    var _orientation;
+    var heading = Cesium.Math.toRadians(0);
+    var pitch = 0;
+    var roll = 0;
+
+    
     var entity;
     
         function render(data) {
             jQuery.each(data, function( index, satellite ) {
+                var catalogNumber = satellite.catnum;
                 if (satellite.calculate) {
-                    if (satellite.catnum == 25544) {
-                        var position = Cesium.Cartesian3.fromDegrees(satellite.longitude, satellite.latitude, satellite.altitude * 1000);
-                        entity.position  = position;
+                    var lat = satellite.latitude;
+                    var lon = satellite.longitude;
+                    var alt = satellite.altitude;
+                    _position = Cesium.Cartesian3.fromDegrees(lon, lat, alt*1000);    
+                    _orientation = Cesium.Transforms.headingPitchRollQuaternion(_position, heading, pitch, roll);
+                    var entity = _viewer.entities.getById(catalogNumber);
+                    if (entity === undefined) {
+                        entity = _viewer.entities.add({
+                            id: catalogNumber,
+                            name : url,
+                            position : _position,
+                            orientation : _orientation,
+                            model : {
+                                uri : url,
+                                minimumPixelSize : 128,
+                                scale: 1
+                            }
+                        });                        
+                    } else {
+                        entity.position = _position;
                     }                        
+                } else {
+                    var entity = _viewer.entities.getById(catalogNumber);
+                    if (entity !== undefined) {
+                        _viewer.entities.removeById();
+                    }                    
                 }
             });             
         }
@@ -70,25 +103,8 @@ var miaview = function() {
             
             resize();   
             
-    var url = '/assets/models/tiefighter/tie_fighter.gltf';
-    var position = Cesium.Cartesian3.fromDegrees(0, 0, 1000000);
-    var heading = Cesium.Math.toRadians(0);
-    var pitch = 0;
-    var roll = 0;
-    var orientation = Cesium.Transforms.headingPitchRollQuaternion(position, heading, pitch, roll);
 
-    entity = _viewer.entities.add({
-        name : url,
-        position : position,
-        orientation : orientation,
-        model : {
-            uri : url,
-            minimumPixelSize : 128,
-            scale: 1
-        }
-    });
-
-_viewer.extend(Cesium.viewerCesiumInspectorMixin);            
+            _viewer.extend(Cesium.viewerCesiumInspectorMixin);            
         }   
         
         function initViewOptions() {
