@@ -1,0 +1,7 @@
+Start Charts
+
+https://home.comcast.net/~erniew/astro/plani.html
+http://ivan.ivanych.net/2010/02/starchartjs-new-astonomical-web-toy/
+https://code.google.com/p/open-sky/source/browse/#svn%2Ftrunk
+http://physics.stackexchange.com/questions/25293/how-to-draw-a-star-chart
+http://spiff.rit.edu/classes/phys373/lectures/radec/radec.html
