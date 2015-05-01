@@ -55,4 +55,32 @@ body .container, body .container table {
     display: none !important; /* IE8 fix */
   }
 }
+
+.viewloader img {
+    margin-right: 10px;
+}
+
+.alertouter {
+    width: 300px;
+    padding: 10px;
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    margin: 0 0 0 -100px;
+    color: black;   
+}
+
+    .alertouter .alertsad {
+        font-size: 32px;
+        margin: -7px 10px 0 0;
+        display: block;
+        float: left;        
+    }
+
+    .alertouter .alertcopy {    
+        outline: none;
+        display: block;
+        text-align: left;
+        line-height: 17px;
+    }
  

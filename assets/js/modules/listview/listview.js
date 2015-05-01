@@ -24,6 +24,8 @@ var miaview = function() {
         }
         
         function render(data) {
+            var renderedSomething = false;
+            
             jQuery.each(data, function( index, satellite ) {
     
                 if (satellite.calculate) {
@@ -47,13 +49,21 @@ var miaview = function() {
                     jQuery('#listview' + satellite.catnum + ' .latitude').html(MIAUTIL.convertDecDegLat(satellite.latitude, true));
                     jQuery('#listview' + satellite.catnum + ' .longitude').html(MIAUTIL.convertDecDegLat(satellite.lng, true));
                     jQuery('#listview' + satellite.catnum + ' .altitude').text(satellite.altitude.toFixed(2));                    
-                    jQuery('#listview' + satellite.catnum + ' .nextevent').text('');                    
+                    jQuery('#listview' + satellite.catnum + ' .nextevent').text(''); 
+                    
+                    renderedSomething = true;                   
                 } else {
                     if (jQuery('#listview' + satellite.catnum).length !== 0) {
                         jQuery('#listview' + satellite.catnum).remove();
                     }                    
                 }
-            });           
+            });
+            
+            if (renderedSomething) {
+                jQuery('#nosats').hide();
+            } else {
+                jQuery('#nosats').show();
+            }          
         }
         
     return {

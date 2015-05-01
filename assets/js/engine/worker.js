@@ -18,7 +18,7 @@ var MIAWORKER = function() {
         self.postMessage(JSON.stringify(result));
         
         if (running) {    
-            setTimeout(calc, 500);
+            setTimeout(calc, 100);
         }
     }
     

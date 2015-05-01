@@ -183,9 +183,12 @@ var miaview = function() {
                 height = parent.height();
             }
 
+            _viewer.forceResize ();
+            return;
+            
             if (width !== 0 && height !== 0) {
-                _viewer.canvas.width = width;
-                _viewer.canvas.height = height;
+                _viewer.canvas.width = width-30;
+                _viewer.canvas.height = height-30;
 
                 _viewer.scene.camera.frustum.aspectRatio = width / height;
             }          

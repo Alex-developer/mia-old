@@ -1,45 +1,79 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Cesium Test</title>
-<link rel="stylesheet" type="text/css" href="my.css">
-</head>
-<body>
-  
-<style>
-      @import url(/assets/js/libs/Cesium-1.7.1/Build/Cesium/Widgets/widgets.css);
-      #cesiumContainer {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
-        margin: 0;
-        overflow: hidden;
-        padding: 0;
-        font-family: sans-serif;
-      }
+<!doctype html>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Foundation | Welcome</title>
+    <link rel="stylesheet" href="/assets/js/libs/foundation/css/foundation.css" />
+    <script src="/assets/js/libs/foundation/js/vendor/modernizr.js"></script>
+  </head>
+  <body>
+    
+    
+<div class="off-canvas-wrap" data-offcanvas>
+  <div class="inner-wrap">
+    <nav class="tab-bar">
+      <section class="left-small">
+        <a class="left-off-canvas-toggle menu-icon" href="#"><span></span></a>
+      </section>
 
-      html {
-        height: 100%;
-      }
+      <section class="middle tab-bar-section">
+        <h1 class="title">Foundation</h1>
+      </section>
 
-      body {
-        padding: 0;
-        margin: 0;
-        overflow: hidden;
-        height: 100%;
-      }
-</style>
+      <section class="right-small">
+        <a class="right-off-canvas-toggle menu-icon" href="#"><span></span></a>
+      </section>
+    </nav>
 
-<script src="/assets/js/libs/Cesium-1.7.1/Build/Cesium/Cesium.js"></script>
+    <aside class="left-off-canvas-menu">
+      <ul class="off-canvas-list">
+        <li><label>Foundation</label></li>
+        <li><a href="#">The Psychohistorians</a></li>
+        <li><a href="#">...</a></li>
+      </ul>
+    </aside>
 
-<div id="cesiumContainer"></div>
+    <aside class="right-off-canvas-menu">
+      <ul class="off-canvas-list">
+        <li><label>Users</label></li>
+        <li><a href="#">Hari Seldon</a></li>
+        <li><a href="#">...</a></li>
+      </ul>
+    </aside>
 
-<script>
-Cesium.BingMapsApi.defaultKey = 'AkU8YjZ3dvP_fyNkibv_UYfvvlfjuXYzVsWe9ccbYiSy8xXMrroZsq0YQJnGbrFG';
-    var _viewer = new Cesium.Viewer('cesiumContainer', {});
-</script>
-  
-</body>
+    <section class="main-section" style="height:100vh">
+      sdf
+      sdf
+      s
+      df
+      sdf
+      s
+      df
+      sf
+      ds
+      
+    </section>
+
+  <a class="exit-off-canvas"></a>
+
+  </div>
+</div>    
+    
+    
+        <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+        <script src="/assets/js/libs/foundation/js/foundation.min.js"></script>        
+    <script>
+      jQuery(document).foundation({
+  offcanvas : {
+    // Sets method in which offcanvas opens.
+    // [ move | overlap_single | overlap ]
+    open_method: 'overlap_single', 
+    // Should the menu close when a menu link is clicked?
+    // [ true | false ]
+    close_on_click : false
+  }
+});
+    </script>
+  </body>
 </html>
