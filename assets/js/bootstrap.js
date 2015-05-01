@@ -47,7 +47,7 @@ var MIABOOTSTRAP = function() {
         var selector = jQuery('<div>',{id: 'satselectorlist', 'class': 'btn-group', 'data-toggle': 'buttons', 'style':'width:100%'}).appendTo('#satelliteselector');
         jQuery.each(sats, function(key, satellite){
             //jQuery('#satselectorlist').append('<label class="btn btn-default" style="clear:both; width:100%"><input type="checkbox" class="satellitebutton" autocomplete="off" id="' + satellite.catnum + '"> ' + satellite.satname + '</label>');
-            jQuery('#satselectorlist').append('<div class="switch tiny"><input type="checkbox" class="satellitebutton" id="' + satellite.catnum + '"><label for="' + satellite.catnum + '"></label> ' + satellite.satname + '</div>');
+            jQuery('#satselectorlist').append('<div class="switch tiny"><input type="checkbox" class="satellitebutton" id="' + satellite.catnum + '"><label for="' + satellite.catnum + '"></label> <span class="label">' + satellite.satname + '</span></div>');
         });
         
         jQuery('#satselectorlist').on('change', '.satellitebutton', function(e){

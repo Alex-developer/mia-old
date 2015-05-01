@@ -1,10 +1,12 @@
  html, body {
   height: 100%;
   font-family: 'Lato', sans-serif;
+  color: white;
 }
 
 .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
+  color: white;  
 }
 
 body {
@@ -32,7 +34,6 @@ body .container, body .container table {
     top: 30%;
     left: 50%;
     margin: 0 0 0 -100px;
-    color: black;   
 }
 
     .alertouter .alertsad {
@@ -49,3 +50,6 @@ body .container, body .container table {
         line-height: 17px;
     }
  
+.switch {
+    color: white;
+}

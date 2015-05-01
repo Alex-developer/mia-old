@@ -1,14 +1,34 @@
- <a data-dropdown="viewmenu" aria-controls="viewmenu" aria-expanded="false">Has Dropdown</a>
+<h3>Views</h3>
+<button data-dropdown="viewmenu" aria-controls="viewmenu" aria-expanded="false">Select View</button>
 <ul id="viewmenu" class="f-dropdown" data-dropdown-content aria-hidden="true" tabindex="-1">
-                <li><a href="#" class="viewloader" data-view="threedview"><img alt="settings" src="/assets/images/earth53.png" width=24 /> 3D View</a></li>
-                <li><a href="#" class="viewloader" data-view="listview"><img alt="settings" src="/assets/images/list7.png" width=24 /> List View</a></li>
-                <li><a href="#" class="viewloader" data-view="polarview"><img alt="settings" src="/assets/images/compass43.png" width=24 /> Polar View</a></li>
-                <li><a href="#" class="viewloader" data-view="passesview"><img alt="settings" src="/assets/images/2442.png" width=24 /> Passes View</a></li>
-                <li><a href="#" class="viewloader" data-view="horizonview"><img alt="settings" src="/assets/images/landscape10.png" width=24 /> Horizon View</a></li>
-                <li><a href="#" class="viewloader" data-view="timelineview"><img alt="settings" src="/assets/images/time39.png" width=24 /> Timeline View</a></li>
-                <li><a href="#" class="viewloader" data-view="dxview"><img alt="settings" src="/assets/images/city16.png" width=24 /> DX View</a></li>
+    <li><a href="#" class="viewloader" data-view="threedview"><img alt="settings" src="/assets/images/earth53.png" width=24 /> 3D View</a></li>
+    <li><a href="#" class="viewloader" data-view="listview"><img alt="settings" src="/assets/images/list7.png" width=24 /> List View</a></li>
+    <li><a href="#" class="viewloader" data-view="polarview"><img alt="settings" src="/assets/images/compass43.png" width=24 /> Polar View</a></li>
+    <li><a href="#" class="viewloader" data-view="passesview"><img alt="settings" src="/assets/images/2442.png" width=24 /> Passes View</a></li>
+    <li><a href="#" class="viewloader" data-view="horizonview"><img alt="settings" src="/assets/images/landscape10.png" width=24 /> Horizon View</a></li>
+    <li><a href="#" class="viewloader" data-view="timelineview"><img alt="settings" src="/assets/images/time39.png" width=24 /> Timeline View</a></li>
+    <li><a href="#" class="viewloader" data-view="dxview"><img alt="settings" src="/assets/images/city16.png" width=24 /> DX View</a></li>
+</ul>
+
+<ul class="tabs" data-tab>
+  <li class="tab-title active"><a href="#panel1">Sat Info</a></li>
+  <li class="tab-title"><a href="#panel2">Options</a></li>
 
 </ul>
+<div class="tabs-content">
+  <div class="content active" id="panel1">
+    {% include 'satinfo.html' %}
+  </div>
+  <div class="content" id="panel2">
+
+
+    <div role="tabpanel" class="tab-pane" id="viewoptions"></div> 
+  
+  
+  </div>
+
+</div>
+
  
  <!--   <div class="navmenu navmenu-default navmenu-fixed-left offcanvas-sm">
         <a class="navmenu-brand visible-md visible-lg" href="#">Mia Sat</a>
