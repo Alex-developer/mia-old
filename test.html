@@ -6,6 +6,8 @@
     <title>Foundation | Welcome</title>
     <link rel="stylesheet" href="/assets/js/libs/foundation/css/foundation.css" />
     <script src="/assets/js/libs/foundation/js/vendor/modernizr.js"></script>
+    
+    
   </head>
   <body>
     
@@ -18,7 +20,7 @@
       </section>
 
       <section class="middle tab-bar-section">
-        <h1 class="title">Foundation</h1>
+        <h1 class="title"> <img src="/assets/images/logo/mia-head.png"> Foundation</h1>
       </section>
 
       <section class="right-small">
@@ -43,15 +45,7 @@
     </aside>
 
     <section class="main-section" style="height:100vh">
-      sdf
-      sdf
-      s
-      df
-      sdf
-      s
-      df
-      sf
-      ds
+
       
     </section>
 
@@ -62,7 +56,8 @@
     
     
         <script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-        <script src="/assets/js/libs/foundation/js/foundation.min.js"></script>        
+        <script src="/assets/js/libs/foundation/js/foundation.min.js"></script>
+<script src="/assets/js/libs/Cesium-1.7.1/Build/Cesium/Cesium.js"></script>                
     <script>
       jQuery(document).foundation({
   offcanvas : {
@@ -74,6 +69,10 @@
     close_on_click : false
   }
 });
+
+Cesium.BingMapsApi.defaultKey = 'AkU8YjZ3dvP_fyNkibv_UYfvvlfjuXYzVsWe9ccbYiSy8xXMrroZsq0YQJnGbrFG';
+    var _viewer = new Cesium.Viewer('cesiumContainer', {});
+
     </script>
   </body>
 </html>

@@ -46,7 +46,8 @@ var MIABOOTSTRAP = function() {
     function buildSatelliteSelector(sats) {
         var selector = jQuery('<div>',{id: 'satselectorlist', 'class': 'btn-group', 'data-toggle': 'buttons', 'style':'width:100%'}).appendTo('#satelliteselector');
         jQuery.each(sats, function(key, satellite){
-            jQuery('#satselectorlist').append('<label class="btn btn-default" style="clear:both; width:100%"><input type="checkbox" class="satellitebutton" autocomplete="off" id="' + satellite.catnum + '"> ' + satellite.satname + '</label>');
+            //jQuery('#satselectorlist').append('<label class="btn btn-default" style="clear:both; width:100%"><input type="checkbox" class="satellitebutton" autocomplete="off" id="' + satellite.catnum + '"> ' + satellite.satname + '</label>');
+            jQuery('#satselectorlist').append('<div class="switch tiny"><input type="checkbox" class="satellitebutton" id="' + satellite.catnum + '"><label for="' + satellite.catnum + '"></label> ' + satellite.satname + '</div>');
         });
         
         jQuery('#satselectorlist').on('change', '.satellitebutton', function(e){
@@ -125,10 +126,20 @@ var MIABOOTSTRAP = function() {
         });
           
     }
-        
+    
+    function initUI() {
+      jQuery(document).foundation({
+        offcanvas : {
+            open_method: 'overlap_single', 
+            close_on_click : false
+        }
+      });        
+    }   
+     
     return {
     
         run : function() {
+            initUI();
             initWorkers();
             getPosition().then(function(e) {
                 initViewLoader();

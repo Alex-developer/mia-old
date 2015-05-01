@@ -4,7 +4,7 @@ var miaview = function() {
         var name = 'List View';
         
         function initView() {
-            var table = '<table class="table" id="listviewtable">  \
+            var table = '<table class="table" id="listviewtable" width="100%">  \
                     <thead>                                     \
                         <tr>                                    \
                             <th>Name</th>                       \
