@@ -88,8 +88,7 @@ var miaview = function() {
         _satLayer.draw();
         
     }
-
-    
+   
     function plotOrbits(satellite) {
         var prePoints = [];                        
         var points = [];                        

@@ -1762,7 +1762,7 @@ var PLib =
             
                             var lng = 360 - PLib.sat_lon;
                             if (lng > 180) lng = -PLib.sat_lon;
-                            PLib.sat[z].longitude = PLib.sat_lon;
+                            PLib.sat[z].longitude = lng;
 
                             PLib.sat[z].slantRange = PLib.irk;
                             PLib.sat[z].orbitNumber = PLib.rv;

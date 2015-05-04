@@ -44,22 +44,40 @@ var MIABOOTSTRAP = function() {
     } 
     
     function buildSatelliteSelector(sats) {
+        var selected = [];
+        
         var selector = jQuery('<div>',{id: 'satselectorlist', 'class': 'btn-group', 'data-toggle': 'buttons', 'style':'width:100%'}).appendTo('#satelliteselector');
         jQuery.each(sats, function(key, satellite){
             //jQuery('#satselectorlist').append('<label class="btn btn-default" style="clear:both; width:100%"><input type="checkbox" class="satellitebutton" autocomplete="off" id="' + satellite.catnum + '"> ' + satellite.satname + '</label>');
-            jQuery('#satselectorlist').append('<div class="switch tiny"><input type="checkbox" class="satellitebutton" id="' + satellite.catnum + '"><label for="' + satellite.catnum + '"></label> <span class="label">' + satellite.satname + '</span></div>');
+            jQuery('#satselectorlist').append(' \
+            <div class="switch tiny fl"> \
+            <input type="checkbox" class="satellitebutton" id="' + satellite.catnum + '"> \
+            <label for="' + satellite.catnum + '"></label> \
+             \
+            </div><span class="label satlabel">' + satellite.satname + '</span><div class="clearfix"></div>');
         });
         
         jQuery('#satselectorlist').on('change', '.satellitebutton', function(e){
-            var selected = [];
-            
+            selected = [];
             jQuery('.satellitebutton').each(function(){
                 if (jQuery(this).prop('checked')) {
                     selected.push(jQuery(this).prop('id'));    
                 }    
             });  
             messageWorker('selection', selected);
+            
+            jQuery('#singlesatelliteselector').html('');
+            jQuery(selected).each(function(id){
+                jQuery('#singlesatelliteselector').append(' \
+                <div class="switch tiny fl"> \
+                <input type="radio" class="singlesatellitebutton" name="testGroup" id="1' + this + '"> \
+                <label for="1' + this + '"></label> \
+                 \
+                </div><span class="label satlabel">' + this + '</span><div class="clearfix"></div>');
+            });
+                    
         });
+
     }
     
     function getPosition(options) {

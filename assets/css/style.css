@@ -9,6 +9,14 @@
   color: white;  
 }
 
+.fl {
+    float:left;    
+}
+
+.cb {
+    clear:both;
+}
+
 body {
   background: #001224;
 }
@@ -18,8 +26,9 @@ body .container, body .container table {
 }
 
 
-.container {
+#templatecontainer {
   max-width: 100%;
+  padding: 10px;  
 }
 
 
@@ -49,7 +58,36 @@ body .container, body .container table {
         text-align: left;
         line-height: 17px;
     }
+
+ #satselectorlist {
+     padding-left: 5px;
+ }
  
 .switch {
     color: white;
+}
+
+.tabs {
+    border-bottom: 1px solid #EFEFEF;
+}
+
+    .tabs dd > a, .tabs .tab-title > a {
+          padding: 0.5rem 0.5rem !important;
+    }
+    
+.satlabel {
+    font-size: 1rem;
+    margin-left: 5px;
+}
+
+.left-off-canvas-menu {
+    width: 19rem;
+}
+
+button.expand, .button.expand {
+  width: 85%;
+}
+
+.label {
+    background: none;
 }

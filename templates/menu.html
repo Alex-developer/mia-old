@@ -1,5 +1,5 @@
-<h3>Views</h3>
-<button data-dropdown="viewmenu" aria-controls="viewmenu" aria-expanded="false">Select View</button>
+
+<button data-dropdown="viewmenu" aria-controls="viewmenu" class="button dropdown expand small">Select View</button>
 <ul id="viewmenu" class="f-dropdown" data-dropdown-content aria-hidden="true" tabindex="-1">
     <li><a href="#" class="viewloader" data-view="threedview"><img alt="settings" src="/assets/images/earth53.png" width=24 /> 3D View</a></li>
     <li><a href="#" class="viewloader" data-view="listview"><img alt="settings" src="/assets/images/list7.png" width=24 /> List View</a></li>
@@ -10,23 +10,29 @@
     <li><a href="#" class="viewloader" data-view="dxview"><img alt="settings" src="/assets/images/city16.png" width=24 /> DX View</a></li>
 </ul>
 
+
 <ul class="tabs" data-tab>
-  <li class="tab-title active"><a href="#panel1">Sat Info</a></li>
-  <li class="tab-title"><a href="#panel2">Options</a></li>
+    <li class="tab-title active"><a href="#object">Satellites</a></li>
+    <li class="tab-title"><a href="#satinfo">Sat Info</a></li>
+    <li class="tab-title"><a href="#viewoptions">View Options</a></li>
 
 </ul>
 <div class="tabs-content">
-  <div class="content active" id="panel1">
-    {% include 'satinfo.html' %}
-  </div>
-  <div class="content" id="panel2">
-
-
-    <div role="tabpanel" class="tab-pane" id="viewoptions"></div> 
-  
-  
-  </div>
-
+    <div class="content active" id="object">
+        <button data-dropdown="satgroups"  class=" button dropdown expand tiny">Select Group</button>
+        <ul id="satgroups" class="f-dropdown" data-dropdown-content aria-hidden="true" tabindex="-1">
+            <li><a href="#"><img alt="settings" src="/assets/images/space4.png" width=24 /> Amateur</a></li>
+            <li><a href="#"><img alt="settings" src="/assets/images/space4.png" width=24 /> Stations</a></li>
+            <li><a href="#"><img alt="settings" src="/assets/images/space4.png" width=24 /> Weather</a></li>
+        </ul>    
+        <div id="satelliteselector"></div>
+    </div>
+    <div class="content" id="satinfo">
+        {% include 'satinfo.html' %}
+    </div>
+    <div class="content" id="viewoptions">
+        <div role="tabpanel" class="tab-pane" id="viewoptions"></div> 
+    </div>
 </div>
 
  
