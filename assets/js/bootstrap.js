@@ -77,7 +77,7 @@ var MIABOOTSTRAP = function() {
                     if (this == _satellites[i].catnum) {
                         jQuery('#singlesatelliteselector').append(' \
                         <div class="switch tiny fl"> \
-                        <input type="radio" class="singlesatellitebutton"' + first + 'name="testGroup" id="1' + this + '" data-id="' + this + '"> \
+                        <input type="radio" class="singlesatellitebutton"' + first + 'name="selectedsat" id="1' + this + '" data-id="' + this + '"> \
                         <label for="1' + this + '"></label> \
                          \
                         </div><span class="label satlabel">' + _satellites[i].satname + '</span><div class="clearfix"></div>');

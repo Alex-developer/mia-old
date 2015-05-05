@@ -26,11 +26,11 @@ var miaview = function() {
         function render(data) {
             var renderedSomething = false;
             
+            var selected = jQuery('input[name=selectedsat]:checked').data('id');
             jQuery.each(data, function( index, satellite ) {
-    
                 if (satellite.calculate) {
                     if (jQuery('#listview' + satellite.catnum ).length === 0) {
-                       var tr = jQuery('<tr>', {id: 'listview' + satellite.catnum }).append(
+                       var tr = jQuery('<tr>', {id: 'listview' + satellite.catnum, class: 'listviewrow' }).append(
                             jQuery('<td>',{class: 'catname'}).text('aa'),
                             jQuery('<td>',{class: 'visibility'}),
                             jQuery('<td>',{class: 'azimuth'}),
@@ -59,6 +59,8 @@ var miaview = function() {
                 }
             });
             
+            jQuery('.listviewrow').css('font-weight', 'normal');
+            jQuery('#listview'+selected).css('font-weight', 'bold');
             if (renderedSomething) {
                 jQuery('#nosats').hide();
             } else {
