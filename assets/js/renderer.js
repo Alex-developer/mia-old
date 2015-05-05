@@ -3,13 +3,15 @@ var MIARENDERER = function() {
 
         function render(data) {
             
-            if (miaview.render !== undefined) {
-                miaview.render(data);   
-            } 
-            
-            if (miaview.updateInfo !== undefined) {
-                if (miaview.updateInfo) {
-                    updateInfo(data);    
+            if (miaview !== undefined) {
+                if (miaview.render !== undefined) {
+                    miaview.render(data);   
+                } 
+                
+                if (miaview.updateInfo !== undefined) {
+                    if (miaview.updateInfo) {
+                        updateInfo(data);    
+                    }
                 }
             }
         }
