@@ -9,6 +9,10 @@
   color: white;  
 }
 
+    h1 small, h2 small, h3 small, h4 small, h5 small, h6 small {
+      color: white;
+    }
+
 .fl {
     float:left;    
 }
@@ -59,7 +63,7 @@ body .container, body .container table {
         line-height: 17px;
     }
 
- #satselectorlist {
+ #satselectorlist, #singlesatelliteselector {
      padding-left: 5px;
  }
  

@@ -4,6 +4,7 @@ var MIABOOTSTRAP = function() {
     var _worker;
     var _sats;
     var _menuBuilt = false;
+    var _satellites = [];
     
     function initWorkers() {
         if (Modernizr.webworkers) {
@@ -46,6 +47,8 @@ var MIABOOTSTRAP = function() {
     function buildSatelliteSelector(sats) {
         var selected = [];
         
+        _satellites = sats;
+        
         var selector = jQuery('<div>',{id: 'satselectorlist', 'class': 'btn-group', 'data-toggle': 'buttons', 'style':'width:100%'}).appendTo('#satelliteselector');
         jQuery.each(sats, function(key, satellite){
             //jQuery('#satselectorlist').append('<label class="btn btn-default" style="clear:both; width:100%"><input type="checkbox" class="satellitebutton" autocomplete="off" id="' + satellite.catnum + '"> ' + satellite.satname + '</label>');
@@ -67,13 +70,22 @@ var MIABOOTSTRAP = function() {
             messageWorker('selection', selected);
             
             jQuery('#singlesatelliteselector').html('');
+            jQuery('#singlenosats').show();
+            var first = ' checked ';
             jQuery(selected).each(function(id){
-                jQuery('#singlesatelliteselector').append(' \
-                <div class="switch tiny fl"> \
-                <input type="radio" class="singlesatellitebutton" name="testGroup" id="1' + this + '"> \
-                <label for="1' + this + '"></label> \
-                 \
-                </div><span class="label satlabel">' + this + '</span><div class="clearfix"></div>');
+                for (var i=0; i<_satellites.length; i++) {
+                    if (this == _satellites[i].catnum) {
+                        jQuery('#singlesatelliteselector').append(' \
+                        <div class="switch tiny fl"> \
+                        <input type="radio" class="singlesatellitebutton"' + first + 'name="testGroup" id="1' + this + '" data-id="' + this + '"> \
+                        <label for="1' + this + '"></label> \
+                         \
+                        </div><span class="label satlabel">' + _satellites[i].satname + '</span><div class="clearfix"></div>');
+                        first = '';
+                        jQuery('#singlenosats').hide();
+                        break;
+                    }
+                }
             });
                     
         });
